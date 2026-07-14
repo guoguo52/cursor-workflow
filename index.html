@@ -11,148 +11,162 @@
 body{background:var(--bg);color:var(--fg);font:14px/1.6 system-ui,-apple-system,sans-serif;min-height:100vh}
 .wrap{max-width:1400px;margin:0 auto;padding:20px}
 h1{font-size:22px;font-weight:700;color:var(--accent);margin-bottom:4px}
-.sub{color:var(--muted);margin-bottom:20px;font-size:13px}
+.sub{color:var(--muted);margin-bottom:16px;font-size:13px}
+
+/* Login Bar */
+.login-bar{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:12px 20px;margin-bottom:20px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.login-bar span{font-size:13px;color:var(--muted)}
+.avatar-btn{padding:8px 18px;border-radius:24px;border:2px solid var(--line);background:var(--card);cursor:pointer;font-size:14px;font-weight:600;transition:.2s}
+.avatar-btn:hover{border-color:var(--accent);background:#eef2ff}
+.avatar-btn.active{border-color:var(--accent);background:var(--accent);color:#fff}
+.avatar-btn.mgr{border-color:var(--purple)}
+.avatar-btn.mgr.active{background:var(--purple);color:#fff}
 
 /* Stats Cards */
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:24px}
-.stat{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;text-align:center}
-.stat .num{font-size:28px;font-weight:700;line-height:1.2}
-.stat .lbl{font-size:12px;color:var(--muted);margin-top:2px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:20px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:12px 14px;text-align:center}
+.stat .num{font-size:26px;font-weight:700;line-height:1.2}
+.stat .lbl{font-size:11px;color:var(--muted);margin-top:2px}
 .c-green .num{color:var(--green)}.c-blue .num{color:var(--blue)}.c-amber .num{color:var(--amber)}.c-red .num{color:var(--red)}.c-accent .num{color:var(--accent)}.c-purple .num{color:var(--purple)}
 
 /* Overall Progress */
-.overall{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px 20px;margin-bottom:24px}
-.overall h3{font-size:14px;font-weight:600;margin-bottom:10px}
-.pbar{height:10px;background:var(--card2);border-radius:5px;overflow:hidden;margin:6px 0}
+.overall{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px 20px;margin-bottom:20px}
+.overall h3{font-size:14px;font-weight:600;margin-bottom:8px}
+.pbar{height:10px;background:var(--card2);border-radius:5px;overflow:hidden;margin:4px 0 2px}
 .pbar .fill{height:100%;border-radius:5px;transition:width .4s}
 .pbar-label{display:flex;justify-content:space-between;font-size:12px;color:var(--muted)}
 
 /* Toolbar */
-.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;align-items:center}
-.toolbar select,.toolbar button{padding:8px 14px;border-radius:8px;border:1px solid var(--line);font-size:13px;cursor:pointer;background:var(--card);color:var(--fg)}
-.toolbar button{background:var(--accent);color:#fff;border:none;font-weight:600}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;align-items:center}
+.toolbar select,.toolbar button{padding:7px 13px;border-radius:8px;border:1px solid var(--line);font-size:12px;cursor:pointer;background:var(--card);color:var(--fg)}
+.toolbar button{background:var(--accent);color:#fff;border:none;font-weight:600;font-size:12px}
 .toolbar button:hover{opacity:.9}
-.toolbar button.sec{background:var(--card2);color:var(--fg);border:1px solid var(--line)}
+.toolbar button.sec{background:var(--card2);color:var(--fg);border:1px solid var(--line)!important}
 
-/* Filter tabs */
-.tabs{display:flex;gap:4px;margin-bottom:16px;flex-wrap:wrap}
-.tab{padding:6px 14px;border-radius:20px;font-size:13px;cursor:pointer;border:1px solid var(--line);background:var(--card);color:var(--muted);font-weight:500;transition:.2s}
-.tab.active{background:var(--accent);color:#fff;border-color:var(--accent)}
-.tab:hover:not(.active){background:var(--card2)}
+/* Main layout: 2 col */
+.main-grid{display:grid;grid-template-columns:1fr 360px;gap:16px}
+@media(max-width:900px){.main-grid{grid-template-columns:1fr}}
 
-/* Episode Grid */
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:12px;margin-bottom:24px}
+/* Left: Episode cards */
+.left-col{}
+.batch-header{font-size:15px;font-weight:700;color:var(--accent);margin:16px 0 10px;padding-left:8px;border-left:3px solid var(--accent)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:10px}
 .ep-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;transition:.2s}
-.ep-card:hover{box-shadow:0 2px 12px rgba(0,0,0,.08)}
-.ep-header{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:var(--header2);color:var(--fg)}
-.ep-header h4{font-size:14px;font-weight:600}
-.ep-header .ep-status{font-size:11px;padding:3px 10px;border-radius:12px;font-weight:600}
+.ep-card:hover{box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.ep-header{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;background:var(--header2);color:var(--fg)}
+.ep-header h4{font-size:13px;font-weight:600}
+.ep-st{font-size:10px;padding:2px 8px;border-radius:10px;font-weight:600}
 .st-pending{background:#e2e8f0;color:#475569}
 .st-doing{background:#bfdbfe;color:#1d4ed8}
 .st-done{background:#bbf7d0;color:#166534}
 .st-issue{background:#fecaca;color:#991b1b}
 .st-review{background:#fde68a;color:#92400e}
 
-.ep-body{padding:10px 14px}
-.phase{display:flex;align-items:center;gap:8px;padding:4px 0;font-size:12px;border-bottom:1px solid var(--line)}
-.phase:last-child{border:none}
-.phase-label{width:68px;flex-shrink:0;font-weight:500;color:var(--muted);font-size:11px}
-.phase-person{width:50px;flex-shrink:0;text-align:center;font-size:11px;color:var(--blue);font-weight:600;cursor:pointer;padding:2px 4px;border-radius:4px}
-.phase-person:hover{background:var(--card2)}
-.phase-status{flex:1;display:flex;gap:3px}
-.phase-dot{width:18px;height:18px;border-radius:50%;border:2px solid var(--line);cursor:pointer;transition:.2s;display:flex;align-items:center;justify-content:center;font-size:9px;color:transparent}
-.phase-dot:hover{border-color:var(--accent)}
-.phase-dot.d0{border-color:#94a3b8;background:transparent}
-.phase-dot.d1{border-color:#3b82f6;background:#dbeafe;color:#3b82f6}
-.phase-dot.d2{border-color:#f59e0b;background:#fef3c7;color:#f59e0b}
-.phase-dot.d3{border-color:#10b981;background:#d1fae5;color:#10b981}
-.phase-dot.d4{border-color:#ef4444;background:#fee2e2;color:#ef4444}
-.phase-note{flex-shrink:0;font-size:16px;cursor:pointer;color:var(--muted);padding:0 4px}
-.phase-note:hover{color:var(--accent)}
-.phase-note.has{color:var(--amber)}
+.ep-body{padding:8px 12px}
+.task-row{display:flex;align-items:center;gap:6px;padding:3px 0;font-size:12px;border-bottom:1px solid var(--line)}
+.task-row:last-child{border:none}
+.task-cb{width:18px;height:18px;accent-color:var(--accent);cursor:pointer;flex-shrink:0}
+.task-label{flex:1;color:var(--fg);transition:.2s}
+.task-label.done{text-decoration:line-through;color:var(--muted)}
+.task-person{font-size:10px;color:var(--blue);background:#e0e7ff;padding:1px 6px;border-radius:8px;cursor:pointer;flex-shrink:0;font-weight:600}
+.task-person:hover{background:#c7d2fe}
+.task-del{cursor:pointer;color:var(--muted);font-size:14px;padding:0 4px;flex-shrink:0}
+.task-del:hover{color:var(--red)}
+.add-task{font-size:11px;color:var(--accent);cursor:pointer;padding:4px 0;display:flex;align-items:center;gap:4px;font-weight:500}
+.add-task:hover{text-decoration:underline}
 
-/* Review row */
-.review{display:flex;gap:6px;padding:4px 0;flex-wrap:wrap}
-.rev-badge{font-size:10px;padding:2px 8px;border-radius:10px;font-weight:600;cursor:pointer;transition:.2s}
+/* Review badges */
+.review-row{display:flex;gap:4px;flex-wrap:wrap;padding:4px 0}
+.rev-badge{font-size:9px;padding:2px 7px;border-radius:8px;font-weight:600;cursor:pointer;transition:.2s}
 .rev-wait{background:#e2e8f0;color:#64748b}
 .rev-pass{background:#bbf7d0;color:#166534}
 .rev-fail{background:#fecaca;color:#991b1b}
 .rev-progress{background:#fde68a;color:#854d0e}
 
+/* Right: My tasks */
+.right-col{position:sticky;top:20px;align-self:start}
+.my-panel{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+.my-panel-header{background:var(--accent);color:#fff;padding:12px 16px;font-size:14px;font-weight:700;display:flex;justify-content:space-between;align-items:center}
+.my-panel-header .pct{font-size:20px;font-weight:700}
+.my-panel-body{padding:12px 16px;max-height:70vh;overflow-y:auto}
+.my-task{display:flex;align-items:flex-start;gap:8px;padding:6px 0;border-bottom:1px solid var(--line);font-size:12px}
+.my-task:last-child{border:none}
+.my-task input[type=checkbox]{width:16px;height:16px;accent-color:var(--green);cursor:pointer;margin-top:2px;flex-shrink:0}
+.my-task .info{flex:1}
+.my-task .info .ep{font-weight:600;color:var(--accent)}
+.my-task .info .desc{color:var(--fg)}
+.my-task .info .desc.done{text-decoration:line-through;color:var(--muted)}
+.my-task .add-custom{display:flex;gap:6px;margin-top:4px}
+.my-task .add-custom input{flex:1;padding:4px 8px;border:1px solid var(--line);border-radius:6px;font-size:11px;background:var(--bg);color:var(--fg)}
+.my-task .add-custom button{padding:4px 10px;border-radius:6px;border:none;background:var(--accent);color:#fff;cursor:pointer;font-size:11px;font-weight:600}
+.daily-section{margin-top:12px;padding-top:12px;border-top:2px solid var(--line)}
+.daily-section h4{font-size:12px;font-weight:600;color:var(--muted);margin-bottom:8px}
+
+/* Legend */
+.legend{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:16px;padding:10px 14px;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);font-size:11px;color:var(--muted)}
+
 /* Modal */
 .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:1000;align-items:center;justify-content:center}
 .modal-overlay.show{display:flex}
-.modal{background:var(--card);border-radius:16px;padding:24px;width:90%;max-width:420px;max-height:80vh;overflow-y:auto}
-.modal h3{font-size:16px;font-weight:700;margin-bottom:12px}
-.modal label{display:block;font-size:12px;color:var(--muted);margin-bottom:4px;margin-top:10px}
-.modal select,.modal input,.modal textarea{width:100%;padding:8px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;background:var(--bg);color:var(--fg)}
-.modal textarea{min-height:60px;resize:vertical}
-.modal-btns{display:flex;gap:8px;margin-top:16px;justify-content:flex-end}
-.modal-btns button{padding:8px 18px;border-radius:8px;border:none;font-size:13px;cursor:pointer;font-weight:600}
+.modal{background:var(--card);border-radius:14px;padding:20px;width:90%;max-width:400px}
+.modal h3{font-size:15px;font-weight:700;margin-bottom:10px}
+.modal label{display:block;font-size:12px;color:var(--muted);margin-bottom:3px;margin-top:8px}
+.modal select,.modal input,.modal textarea{width:100%;padding:7px 10px;border:1px solid var(--line);border-radius:6px;font-size:13px;background:var(--bg);color:var(--fg)}
+.modal textarea{min-height:50px;resize:vertical}
+.modal-btns{display:flex;gap:8px;margin-top:14px;justify-content:flex-end}
+.modal-btns button{padding:7px 16px;border-radius:8px;border:none;font-size:12px;cursor:pointer;font-weight:600}
 .btn-ok{background:var(--accent);color:#fff}
 .btn-no{background:var(--card2);color:var(--fg);border:1px solid var(--line)!important}
 
-/* Legend */
-.legend{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:20px;padding:12px 16px;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);font-size:12px}
-.legend-item{display:flex;align-items:center;gap:5px}
-.legend-dot{width:14px;height:14px;border-radius:50%;border:2px solid}
-.legend-dot.l0{border-color:#94a3b8;background:transparent}
-.legend-dot.l1{border-color:#3b82f6;background:#dbeafe}
-.legend-dot.l2{border-color:#f59e0b;background:#fef3c7}
-.legend-dot.l3{border-color:#10b981;background:#d1fae5}
-.legend-dot.l4{border-color:#ef4444;background:#fee2e2}
-
-/* Person view */
-.person-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px;margin-bottom:12px}
-.person-card h4{font-size:15px;font-weight:700;margin-bottom:8px}
-.person-stats{display:flex;gap:12px;flex-wrap:wrap;font-size:12px;color:var(--muted)}
-.person-stats span{padding:3px 10px;background:var(--card2);border-radius:12px}
-
-/* Toast */
-.toast{position:fixed;bottom:20px;right:20px;background:var(--header);color:#fff;padding:12px 20px;border-radius:10px;font-size:13px;z-index:2000;transform:translateY(80px);opacity:0;transition:.3s}
+.toast{position:fixed;bottom:20px;right:20px;background:var(--header);color:#fff;padding:10px 18px;border-radius:10px;font-size:12px;z-index:2000;transform:translateY(80px);opacity:0;transition:.3s}
 .toast.show{transform:translateY(0);opacity:1}
 
-/* Scrollbar */
-::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar{width:5px}
 ::-webkit-scrollbar-thumb{background:var(--line);border-radius:3px}
-
-/* Batch header */
-.batch-header{font-size:15px;font-weight:700;color:var(--accent);margin:20px 0 10px;padding-left:8px;border-left:3px solid var(--accent)}
 </style>
 </head>
 <body>
 <div class="wrap">
 <h1>🎬 极光心智 · Cursor拆本进度看板</h1>
-<p class="sub">总集数 40 · 点击圆点更新状态 · 点击👤分配负责人 · 点击📝添加备注 · 数据自动保存至浏览器</p>
+<p class="sub">40集 · 点击身份登录 → 勾选完成任务 → 进度自动更新 · 数据自动保存</p>
+
+<!-- Login -->
+<div class="login-bar">
+  <span>👤 我是谁：</span>
+  <button class="avatar-btn" onclick="login('夏木')">夏木</button>
+  <button class="avatar-btn" onclick="login('蝈蝈')">蝈蝈</button>
+  <button class="avatar-btn" onclick="login('郭华')">郭华</button>
+  <button class="avatar-btn" onclick="login('孙浩堂')">孙浩堂</button>
+  <button class="avatar-btn" onclick="login('小韦')">小韦</button>
+  <span style="margin-left:8px">|</span>
+  <button class="avatar-btn mgr" onclick="login('管理')">
+📊 管理
+  </button>
+</div>
 
 <!-- Stats -->
 <div class="stats" id="stats"></div>
 
-<!-- Overall Progress -->
+<!-- Overall -->
 <div class="overall" id="overall"></div>
 
 <!-- Toolbar -->
 <div class="toolbar">
-  <select id="viewMode"><option value="batch">按批次查看</option><option value="person">按人员查看</option></select>
-  <select id="phaseFilter"><option value="all">全部阶段</option><option value="script">剧本细化</option><option value="asset">资产生成</option><option value="storyboard">故事板审核</option><option value="video">分镜视频</option><option value="roughcut">粗剪辑</option><option value="finalcut">精剪字幕</option></select>
-  <select id="batchFilter"><option value="all">全部批次</option><option value="1">第1批 (1-10集)</option><option value="2">第2批 (11-20集)</option><option value="3">第3批 (21-30集)</option><option value="4">第4批 (31-40集)</option></select>
-  <button class="sec" onclick="exportJSON()">📤 导出JSON</button>
-  <button class="sec" onclick="importJSON()">📥 导入JSON</button>
-  <button class="sec" onclick="resetData()">🔄 重置数据</button>
+  <select id="viewMode" onchange="render()"><option value="batch">📦 按批次</option><option value="person">👤 按人员</option></select>
+  <select id="batchFilter" onchange="render()"><option value="all">全部批次</option><option value="1">第1批(1-10)</option><option value="2">第2批(11-20)</option><option value="3">第3批(21-30)</option><option value="4">第4批(31-40)</option></select>
+  <button class="sec" onclick="exportJSON()">📤 导出</button>
+  <button class="sec" onclick="document.getElementById('importFile').click()">📥 导入</button>
+  <button class="sec" onclick="if(confirm('确定重置？')){localStorage.removeItem('cw_v3');initData();render();toast('🔄 已重置')}">🔄 重置</button>
   <input type="file" id="importFile" accept=".json" style="display:none" onchange="handleImport(event)">
 </div>
 
-<!-- Legend -->
-<div class="legend">
-  <div class="legend-item"><div class="legend-dot l0"></div>未开始</div>
-  <div class="legend-item"><div class="legend-dot l1"></div>进行中</div>
-  <div class="legend-item"><div class="legend-dot l2"></div>审核中</div>
-  <div class="legend-item"><div class="legend-dot l3"></div>已完成</div>
-  <div class="legend-item"><div class="legend-dot l4"></div>退回修改</div>
-</div>
+<div class="legend">✅ 已完成 | ⬜ 未开始 | 点击👤换人 | ＋添加自定义任务 | 📝添加备注 | 审核标签点击切换</div>
 
-<!-- Content -->
-<div id="content"></div>
+<!-- Main Grid -->
+<div class="main-grid">
+  <div class="left-col" id="mainContent"></div>
+  <div class="right-col" id="myPanel"></div>
+</div>
 </div>
 
 <!-- Modal -->
@@ -162,306 +176,355 @@ h1{font-size:22px;font-weight:700;color:var(--accent);margin-bottom:4px}
   <div id="modalBody"></div>
   <div class="modal-btns">
     <button class="btn-no" onclick="closeModal()">取消</button>
-    <button class="btn-ok" id="modalOk" onclick="modalSave()">保存</button>
+    <button class="btn-ok" id="modalOk">保存</button>
   </div>
 </div>
 </div>
-
-<!-- Toast -->
 <div class="toast" id="toast"></div>
 
 <script>
-// ============ DATA MODEL ============
-const PHASES = [
-  {key:'script', name:'剧本细化', persons:['夏木','蝈蝈','郭华','孙浩堂','小韦'], defaultPerson:'夏木'},
-  {key:'asset', name:'资产生成', persons:['夏木','蝈蝈','郭华','孙浩堂','小韦'], defaultPerson:'夏木'},
-  {key:'storyboard', name:'故事板审核', persons:['夏木','蝈蝈','郭华','孙浩堂','小韦','甲方'], defaultPerson:'蝈蝈'},
-  {key:'video', name:'分镜视频', persons:['夏木','蝈蝈','郭华','孙浩堂','小韦'], defaultPerson:'夏木'},
-  {key:'roughcut', name:'粗剪辑', persons:['夏木','蝈蝈','郭华','孙浩堂','小韦'], defaultPerson:'小韦'},
-  {key:'finalcut', name:'精剪字幕', persons:['蝈蝈'], defaultPerson:'蝈蝈'}
+const EPISODES=40, BATCH=10;
+const PERSONS=['夏木','蝈蝈','郭华','孙浩堂','小韦'];
+const DEFAULT_PHASES=[
+  {key:'script',name:'剧本细化',defaultPerson:'夏木'},
+  {key:'asset',name:'资产生成',defaultPerson:'夏木'},
+  {key:'storyboard',name:'故事板审核',defaultPerson:'蝈蝈'},
+  {key:'video',name:'分镜视频',defaultPerson:'夏木'},
+  {key:'roughcut',name:'粗剪辑',defaultPerson:'小韦'},
+  {key:'finalcut',name:'精剪字幕',defaultPerson:'蝈蝈'}
 ];
-
-const REVIEWS = [
-  {key:'script_review_guoguo', label:'蝈蝈审剧本'},
-  {key:'script_review_client', label:'甲方审剧本'},
-  {key:'asset_review_guoguo', label:'蝈蝈审资产'},
-  {key:'asset_review_client', label:'甲方审资产'},
-  {key:'story_review_guoguo', label:'蝈蝈审故事板'},
-  {key:'story_review_client', label:'甲方审故事板'},
-  {key:'final_review_client', label:'甲方终审成片'}
+const REVIEWS=[
+  {key:'r1',label:'蝈蝈审剧本'},
+  {key:'r2',label:'甲方审剧本'},
+  {key:'r3',label:'蝈蝈审资产'},
+  {key:'r4',label:'甲方审资产'},
+  {key:'r5',label:'蝈蝈审故事板'},
+  {key:'r6',label:'甲方审故事板'},
+  {key:'r7',label:'甲方终审成片'}
 ];
+const STATUS={0:'未开始',1:'进行中',2:'审核中',3:'已完成',4:'退回修改'};
 
-const STATUS = {0:'未开始',1:'进行中',2:'审核中',3:'已完成',4:'退回修改'};
-const STATUS_CLS = {0:'d0',1:'d1',2:'d2',3:'d3',4:'d4'};
-const CARD_STATUS = {0:'st-pending',1:'st-doing',2:'st-review',3:'st-done',4:'st-issue'};
-const REV_STATUS = {0:'st-review',1:'st-progress',2:'st-pass',3:'st-fail'};
+let data, me=localStorage.getItem('cw_me')||'';
 
-const EPISODES = 40;
-const BATCH_SIZE = 10;
-
-// ============ STORAGE ============
-let data;
-function load(){
-  const saved = localStorage.getItem('cursor_workflow_v2');
-  if(saved){ data = JSON.parse(saved); } else { init(); }
-}
-function save(){ localStorage.setItem('cursor_workflow_v2', JSON.stringify(data)); toast('💾 已自动保存'); }
-function init(){
-  data = { episodes:[] };
+// ============ DATA ============
+function initData(){
+  data={episodes:[]};
   for(let i=1;i<=EPISODES;i++){
-    const ep = {id:i, batch:Math.ceil(i/BATCH_SIZE), phases:{}, reviews:{}, notes:{}};
-    PHASES.forEach(p=>{ ep.phases[p.key] = {status:0, person:p.defaultPerson}; ep.notes[p.key] = ''; });
-    REVIEWS.forEach(r=>{ ep.reviews[r.key] = 0; });
-    // Pre-fill: episodes 1-11 rough cut done by 小韦
+    const ep={id:i,batch:Math.ceil(i/BATCH),phases:[],reviews:{},notes:{}};
+    DEFAULT_PHASES.forEach(p=>{
+      ep.phases.push({key:p.key,name:p.name,status:0,person:p.defaultPerson});
+      ep.notes[p.key]='';
+    });
+    REVIEWS.forEach(r=>ep.reviews[r.key]=0);
+    // Pre-fill 1-11
     if(i<=11){
-      ep.phases.script.status = 3;
-      ep.phases.asset.status = 3;
-      ep.phases.storyboard.status = 3;
-      ep.phases.video.status = 3;
-      ep.phases.roughcut.status = 3;
-      ep.phases.roughcut.person = '小韦';
-      ep.phases.finalcut.status = 1;
-      ep.notes.roughcut = i===11 ? '需增补两组镜头' : '';
-      ep.reviews.script_review_guoguo = 2;
-      ep.reviews.script_review_client = 2;
-      ep.reviews.asset_review_guoguo = 2;
-      ep.reviews.asset_review_client = 2;
-      ep.reviews.story_review_guoguo = 2;
-      ep.reviews.story_review_client = 2;
+      ep.phases[0].status=3; // script done
+      ep.phases[1].status=3; // asset done
+      ep.phases[2].status=3; // storyboard done
+      ep.phases[3].status=3; // video done
+      ep.phases[4].status=3; // roughcut done
+      ep.phases[4].person='小韦';
+      if(i===11){ ep.phases[4].status=1; ep.notes.roughcut='需增补两组镜头'; }
+      ep.phases[5].status=i<=10?3:0; // finalcut
+      ep.reviews.r1=2; ep.reviews.r2=2;
+      ep.reviews.r3=2; ep.reviews.r4=2;
+      ep.reviews.r5=2; ep.reviews.r6=2;
+      ep.reviews.r7=i<=10?2:0;
     }
     data.episodes.push(ep);
   }
-  save();
+  localStorage.setItem('cw_v3',JSON.stringify(data));
+}
+function load(){
+  const s=localStorage.getItem('cw_v3');
+  if(s){try{data=JSON.parse(s)}catch(e){initData()}} else initData();
+}
+function save(){
+  localStorage.setItem('cw_v3',JSON.stringify(data));
+  toast('💾 已保存');
+}
+
+// ============ LOGIN ============
+function login(name){
+  me=name;
+  localStorage.setItem('cw_me',me);
+  updateLoginUI(); render();
+}
+function updateLoginUI(){
+  document.querySelectorAll('.avatar-btn').forEach(b=>{
+    b.classList.toggle('active', b.textContent.trim()===me);
+  });
 }
 
 // ============ RENDER ============
 function render(){
-  renderStats();
-  renderOverall();
-  const mode = document.getElementById('viewMode').value;
+  renderStats(); renderOverall(); renderMain(); renderMyPanel();
+}
+function renderStats(){
+  const eps=data.episodes;
+  const done=eps.filter(e=>epStatus(e)===3).length;
+  const doing=eps.filter(e=>{const s=epStatus(e);return s===1||s===2}).length;
+  const issue=eps.filter(e=>epStatus(e)===4).length;
+  const pending=eps.filter(e=>epStatus(e)===0).length;
+  const totalPh=EPISODES*DEFAULT_PHASES.length;
+  const donePh=DEFAULT_PHASES.reduce((a,p)=>a+eps.filter(e=>e.phases.find(ph=>ph.key===p.key).status===3).length,0);
+  document.getElementById('stats').innerHTML=`
+    <div class="stat c-accent"><div class="num">${EPISODES}</div><div class="lbl">总集数</div></div>
+    <div class="stat c-green"><div class="num">${done}</div><div class="lbl">已完成</div></div>
+    <div class="stat c-blue"><div class="num">${doing}</div><div class="lbl">进行中</div></div>
+    <div class="stat c-amber"><div class="num">${pending}</div><div class="lbl">未开始</div></div>
+    <div class="stat c-red"><div class="num">${issue}</div><div class="lbl">退回</div></div>
+    <div class="stat c-purple"><div class="num">${Math.round(donePh/totalPh*100)}%</div><div class="lbl">总进度</div></div>`;
+}
+function renderOverall(){
+  const eps=data.episodes;
+  let h='<h3>📊 各阶段完成进度</h3>';
+  DEFAULT_PHASES.forEach(p=>{
+    const d=eps.filter(e=>e.phases.find(ph=>ph.key===p.key).status===3).length;
+    const pct=Math.round(d/EPISODES*100);
+    const c=pct===100?'var(--green)':pct>50?'var(--blue)':'var(--amber)';
+    h+=`<div class="pbar-label"><span>${p.name}</span><span>${d}/${EPISODES} (${pct}%)</span></div><div class="pbar"><div class="fill" style="width:${pct}%;background:${c}"></div></div>`;
+  });
+  h+='<h3 style="margin-top:14px">🔍 审核进度</h3>';
+  REVIEWS.forEach(r=>{
+    const d=eps.filter(e=>e.reviews[r.key]===2).length;
+    const pct=Math.round(d/EPISODES*100);
+    h+=`<div class="pbar-label"><span>${r.label}</span><span>${d}/${EPISODES} (${pct}%)</span></div><div class="pbar"><div class="fill" style="width:${pct}%;background:var(--purple)"></div></div>`;
+  });
+  document.getElementById('overall').innerHTML=h;
+}
+function epStatus(ep){
+  if(ep.phases.some(p=>p.status===4)) return 4;
+  if(ep.phases.every(p=>p.status===3)) return 3;
+  if(ep.phases.some(p=>p.status===2)) return 2;
+  if(ep.phases.some(p=>p.status===1)) return 1;
+  return 0;
+}
+function epStatusCls(s){return s===3?'st-done':s===4?'st-issue':s===2?'st-review':s===1?'st-doing':'st-pending'}
+function epStatusTxt(s){return s===3?'✅ 已完成':s===4?'⚠️ 退回':s===2?'⏳ 审核中':s===1?'🔨 进行中':'⬜ 未开始'}
+
+function renderMain(){
+  const mode=document.getElementById('viewMode').value;
   if(mode==='person') renderPersonView(); else renderBatchView();
 }
 
-function renderStats(){
-  const eps = data.episodes;
-  const done = eps.filter(e=>getEpStatus(e)>=3).length;
-  const doing = eps.filter(e=>{const s=getEpStatus(e);return s===1||s===2}).length;
-  const issue = eps.filter(e=>getEpStatus(e)===4).length;
-  const pending = eps.filter(e=>getEpStatus(e)===0).length;
-  const phaseComplete = PHASES.reduce((a,p)=>a+eps.filter(e=>e.phases[p.key].status===3).length,0);
-  const totalPhase = EPISODES * PHASES.length;
-  const pct = Math.round(phaseComplete/totalPhase*100);
-  document.getElementById('stats').innerHTML = `
-    <div class="stat c-accent"><div class="num">${EPISODES}</div><div class="lbl">总集数</div></div>
-    <div class="stat c-green"><div class="num">${done}</div><div class="lbl">已完成集数</div></div>
-    <div class="stat c-blue"><div class="num">${doing}</div><div class="lbl">进行中</div></div>
-    <div class="stat c-amber"><div class="num">${pending}</div><div class="lbl">未开始</div></div>
-    <div class="stat c-red"><div class="num">${issue}</div><div class="lbl">退回修改</div></div>
-    <div class="stat c-purple"><div class="num">${pct}%</div><div class="lbl">总进度</div></div>`;
-}
-
-function renderOverall(){
-  const eps = data.episodes;
-  let html = '<h3>📊 各阶段完成进度</h3>';
-  PHASES.forEach(p=>{
-    const d = eps.filter(e=>e.phases[p.key].status===3).length;
-    const pct = Math.round(d/EPISODES*100);
-    const color = pct===100?'var(--green)':pct>50?'var(--blue)':'var(--amber)';
-    html+=`<div class="pbar-label"><span>${p.name}</span><span>${d}/${EPISODES} (${pct}%)</span></div><div class="pbar"><div class="fill" style="width:${pct}%;background:${color}"></div></div>`;
-  });
-  // Reviews
-  html+='<h3 style="margin-top:16px">🔍 审核进度</h3>';
-  REVIEWS.forEach(r=>{
-    const d = eps.filter(e=>e.reviews[r.key]===2).length;
-    const pct = Math.round(d/EPISODES*100);
-    const color = pct===100?'var(--green)':'var(--purple)';
-    html+=`<div class="pbar-label"><span>${r.label}</span><span>${d}/${EPISODES} (${pct}%)</span></div><div class="pbar"><div class="fill" style="width:${pct}%;background:${color}"></div></div>`;
-  });
-  document.getElementById('overall').innerHTML = html;
-}
-
-function getEpStatus(ep){
-  const scores = PHASES.map(p=>ep.phases[p.key].status);
-  if(scores.some(s=>s===4)) return 4;
-  if(scores.every(s=>s===3)) return 3;
-  if(scores.some(s=>s===2)) return 2;
-  if(scores.some(s=>s===1)) return 1;
-  return 0;
-}
-
-function getEpStatusText(ep){
-  const s=getEpStatus(ep);
-  if(s===3) return '已完成';
-  if(s===4) return '有退回';
-  const phases = PHASES;
-  const lastDone = phases.findLast(p=>ep.phases[p.key].status===3);
-  const nextPhase = lastDone ? phases[phases.indexOf(lastDone)+1] : phases[0];
-  if(nextPhase) return nextPhase ? nextPhase.name : '—';
-  return '—';
-}
-
 function renderBatchView(){
-  const filter = document.getElementById('batchFilter').value;
-  const phaseF = document.getElementById('phaseFilter').value;
-  let html='';
-  const batches = filter==='all'?[1,2,3,4]:[parseInt(filter)];
+  const bf=document.getElementById('batchFilter').value;
+  const batches=bf==='all'?[1,2,3,4]:[+bf];
+  let h='';
   batches.forEach(b=>{
-    const eps = data.episodes.filter(e=>e.batch===b);
-    html+=`<div class="batch-header">📦 第${b}批 (${(b-1)*BATCH_SIZE+1}-${b*BATCH_SIZE}集)</div>`;
-    html+='<div class="grid">';
-    eps.forEach(ep=>{
-      if(phaseF!=='all'){
-        const phasesToShow = PHASES.filter(p=>p.key===phaseF);
-        html+=renderEpCard(ep, phasesToShow);
-      } else {
-        html+=renderEpCard(ep, PHASES);
-      }
-    });
-    html+='</div>';
+    const eps=data.episodes.filter(e=>e.batch===b);
+    h+=`<div class="batch-header">📦 第${b}批 (${(b-1)*BATCH+1}-${b*BATCH}集)</div><div class="grid">`;
+    eps.forEach(ep=>h+=renderEpCard(ep));
+    h+='</div>';
   });
-  document.getElementById('content').innerHTML = html;
-}
-
-function renderEpCard(ep, phases){
-  const st = getEpStatus(ep);
-  const cls = CARD_STATUS[st];
-  const stText = st===3?'✅ 已完成':st===4?'⚠️ 有退回':st===2?'⏳ 审核中':st===1?'🔨 进行中':'⬜ 未开始';
-  let html=`<div class="ep-card"><div class="ep-header"><h4>第 ${ep.id} 集</h4><span class="ep-status ${cls}">${stText}</span></div><div class="ep-body">`;
-  phases.forEach(p=>{
-    const s = ep.phases[p.key].status;
-    const person = ep.phases[p.key].person;
-    const note = ep.notes[p.key];
-    html+=`<div class="phase"><span class="phase-label">${p.name}</span><span class="phase-person" onclick="editPerson(${ep.id},'${p.key}')" title="点击更换负责人">👤${person}</span>`;
-    html+=`<div class="phase-status">`;
-    for(let i=0;i<=4;i++){
-      html+=`<div class="phase-dot ${STATUS_CLS[i]}" onclick="setStatus(${ep.id},'${p.key}',${i})" title="${STATUS[i]}">${i===3?'✓':i===4?'✗':''}</div>`;
-    }
-    html+=`</div>`;
-    html+=`<span class="phase-note ${note?'has':''}" onclick="editNote(${ep.id},'${p.key}')" title="备注">📝</span></div>`;
-  });
-  // Reviews
-  const epReviews = REVIEWS.filter(r=>{
-    if(r.key.includes('script')||r.key.includes('asset')||r.key.includes('story')) return true;
-    if(r.key.includes('final')) return true;
-    return true;
-  });
-  html+='<div class="review">';
-  epReviews.forEach(r=>{
-    const s = ep.reviews[r.key];
-    const cls = s===0?'rev-wait':s===1?'rev-progress':s===2?'rev-pass':'rev-fail';
-    const txt = s===0?'待审':s===1?'审核中':s===2?'已过':'退回';
-    html+=`<span class="rev-badge ${cls}" onclick="cycleReview(${ep.id},'${r.key}')" title="点击切换">${r.label}:${txt}</span>`;
-  });
-  html+='</div>';
-  html+='</div></div>';
-  return html;
+  document.getElementById('mainContent').innerHTML=h;
 }
 
 function renderPersonView(){
-  const persons = ['夏木','蝈蝈','郭华','孙浩堂','小韦'];
-  let html='';
+  const persons=me==='管理'?PERSONS:[me];
+  let h='';
   persons.forEach(p=>{
-    const myEps = data.episodes.filter(ep=>PHASES.some(ph=>ep.phases[ph.key].person===p && ep.phases[ph.key].status!==0));
-    const done = data.episodes.filter(ep=>PHASES.some(ph=>ep.phases[ph.key].person===p && ep.phases[ph.key].status===3)).length;
-    const doing = myEps.length - done;
-    const issue = data.episodes.filter(ep=>PHASES.some(ph=>ep.phases[ph.key].person===p && ep.phases[ph.key].status===4)).length;
-    html+=`<div class="person-card"><h4>👤 ${p}</h4>`;
-    html+=`<div class="person-stats"><span>负责 ${myEps.length} 集</span><span>已完成 ${done}</span><span>进行中 ${doing}</span><span>退回 ${issue}</span></div>`;
-    html+='<div style="margin-top:10px">';
-    myEps.forEach(ep=>{
-      const myPhases = PHASES.filter(ph=>ep.phases[ph.key].person===p);
-      myPhases.forEach(ph=>{
-        const s=ep.phases[ph.key].status;
-        const color=s===3?'var(--green)':s===4?'var(--red)':s>0?'var(--blue)':'var(--muted)';
-        html+=`<div style="display:flex;align-items:center;gap:8px;padding:3px 0;font-size:12px"><span style="color:var(--muted);width:50px">第${ep.id}集</span><span>${ph.name}</span><span style="width:10px;height:10px;border-radius:50%;background:${color}"></span><span style="color:var(--muted);font-size:11px">${STATUS[s]}</span></div>`;
+    let myTasks=[];
+    data.episodes.forEach(ep=>{
+      ep.phases.forEach(ph=>{
+        if(ph.person===p){
+          myTasks.push({epId:ep.id,ep:ep,phase:ph});
+        }
       });
     });
-    html+='</div></div>';
+    const done=myTasks.filter(t=>t.phase.status===3).length;
+    h+=`<div class="batch-header">👤 ${p} (${done}/${myTasks.length} 完成)</div><div class="grid">`;
+    data.episodes.forEach(ep=>h+=renderEpCard(ep,p));
+    h+='</div>';
   });
-  document.getElementById('content').innerHTML = html;
+  document.getElementById('mainContent').innerHTML=h;
 }
 
-// ============ INTERACTIONS ============
-function setStatus(epId, phaseKey, status){
-  data.episodes[epId-1].phases[phaseKey].status = status;
-  save(); render();
+function renderEpCard(ep,highlightPerson){
+  const st=epStatus(ep);
+  let h=`<div class="ep-card"><div class="ep-header"><h4>第 ${ep.id} 集</h4><span class="ep-st ${epStatusCls(st)}">${epStatusTxt(st)}</span></div><div class="ep-body">`;
+  ep.phases.forEach((ph,idx)=>{
+    const checked=ph.status===3;
+    const hl=highlightPerson&&ph.person===highlightPerson?'border-left:3px solid var(--accent);padding-left:6px':'';
+    h+=`<div class="task-row" style="${hl}">`;
+    h+=`<input type="checkbox" class="task-cb" ${checked?'checked':''} onchange="togglePhase(${ep.id},'${ph.key}',this.checked)" title="${checked?'已完成':'未完成'}">`;
+    h+=`<span class="task-label ${checked?'done':''}">${ph.name}</span>`;
+    h+=`<span class="task-person" onclick="changePerson(${ep.id},'${ph.key}')">👤${ph.person}</span>`;
+    // note indicator
+    if(ep.notes[ph.key]){
+      h+=`<span style="font-size:14px;cursor:pointer;color:var(--amber);padding:0 3px" onclick="editNote(${ep.id},'${ph.key}')" title="${ep.notes[ph.key]}">📝</span>`;
+    } else {
+      h+=`<span style="font-size:14px;cursor:pointer;color:var(--line);padding:0 3px" onclick="editNote(${ep.id},'${ph.key}')" title="添加备注">📝</span>`;
+    }
+    h+=`</div>`;
+    // Custom tasks for this phase
+    const customTasks = ep['custom_'+ph.key]||[];
+    customTasks.forEach((ct,ci)=>{
+      const cDone=ct.done;
+      h+=`<div class="task-row" style="padding-left:28px">`;
+      h+=`<input type="checkbox" class="task-cb" ${cDone?'checked':''} onchange="toggleCustom(${ep.id},'${ph.key}',${ci},this.checked)">`;
+      h+=`<span class="task-label ${cDone?'done':''}" style="font-size:11px;color:var(--muted)">↳ ${ct.text}</span>`;
+      h+=`<span class="task-del" onclick="delCustom(${ep.id},'${ph.key}',${ci})">✕</span>`;
+      h+=`</div>`;
+    });
+    // Add custom task button
+    if(me&&me!=='管理'&&ph.person===me){
+      h+=`<div class="add-task" onclick="addCustom(${ep.id},'${ph.key}')" style="padding-left:28px">＋ 添加子任务</div>`;
+    }
+  });
+  // Reviews
+  h+='<div class="review-row">';
+  REVIEWS.forEach(r=>{
+    const s=ep.reviews[r.key];
+    const cls=s===0?'rev-wait':s===1?'rev-progress':s===2?'rev-pass':'rev-fail';
+    const txt=s===0?'待审':s===1?'审核中':s===2?'已过':'退回';
+    h+=`<span class="rev-badge ${cls}" onclick="cycleRev(${ep.id},'${r.key}')">${r.label}:${txt}</span>`;
+  });
+  h+='</div></div></div>';
+  return h;
 }
 
-function editPerson(epId, phaseKey){
-  const ep = data.episodes[epId-1];
-  const phase = PHASES.find(p=>p.key===phaseKey);
-  const current = ep.phases[phaseKey].person;
-  let html=`<label>当前: ${current}</label><label>更换为:</label><select id="mPerson">`;
-  phase.persons.forEach(p=>{ html+=`<option value="${p}" ${p===current?'selected':''}>${p}</option>`; });
-  html+='</select>';
-  showModal('👤 更换负责人 - 第'+epId+'集 '+phase.name, html, ()=>{
-    ep.phases[phaseKey].person = document.getElementById('mPerson').value;
-    save(); render();
+// ============ MY PANEL ============
+function renderMyPanel(){
+  const panel=document.getElementById('myPanel');
+  if(!me||me==='管理'){panel.innerHTML='<div class="my-panel"><div class="my-panel-header">📊 请先登录<div class="pct">—</div></div><div class="my-panel-body" style="text-align:center;color:var(--muted);padding:30px">点击上方身份按钮<br>查看你的任务清单</div></div>';return;}
+  let myTasks=[];
+  data.episodes.forEach(ep=>{
+    ep.phases.forEach(ph=>{
+      if(ph.person===me){
+        myTasks.push({epId:ep.id,ep:ep,phase:ph});
+      }
+    });
+  });
+  const done=myTasks.filter(t=>t.phase.status===3).length;
+  const pct=myTasks.length?Math.round(done/myTasks.length*100):0;
+  let h=`<div class="my-panel"><div class="my-panel-header">📋 ${me}的任务<div class="pct">${pct}%</div></div>`;
+  h+=`<div style="padding:8px 16px;background:var(--card2)"><div class="pbar" style="margin:0"><div class="fill" style="width:${pct}%;background:var(--green)"></div></div></div>`;
+  h+='<div class="my-panel-body">';
+  // Pending tasks first
+  const pending=myTasks.filter(t=>t.phase.status!==3);
+  const completed=myTasks.filter(t=>t.phase.status===3);
+  if(pending.length){
+    h+='<div style="font-size:11px;color:var(--muted);font-weight:600;margin-bottom:4px">⏳ 待完成 ('+pending.length+')</div>';
+    pending.forEach(t=>{
+      h+=`<div class="my-task"><input type="checkbox" ${t.phase.status===3?'checked':''} onchange="togglePhase(${t.epId},'${t.phase.key}',this.checked)"><div class="info"><div class="ep">第${t.epId}集</div><div class="desc">${t.phase.name}</div></div></div>`;
+      // custom sub-tasks
+      const customs=t.ep['custom_'+t.phase.key]||[];
+      customs.forEach((ct,ci)=>{
+        h+=`<div class="my-task" style="padding-left:20px"><input type="checkbox" ${ct.done?'checked':''} onchange="toggleCustom(${t.epId},'${t.phase.key}',${ci},this.checked)"><div class="info"><div class="desc" style="font-size:11px;color:var(--muted)">↳ ${ct.text}</div></div></div>`;
+      });
+    });
+  }
+  if(completed.length){
+    h+='<div style="font-size:11px;color:var(--green);font-weight:600;margin:10px 0 4px">✅ 已完成 ('+completed.length+')</div>';
+    completed.forEach(t=>{
+      h+=`<div class="my-task"><input type="checkbox" checked onchange="togglePhase(${t.epId},'${t.phase.key}',false)"><div class="info"><div class="ep">第${t.epId}集</div><div class="desc done">${t.phase.name}</div></div></div>`;
+    });
+  }
+
+  // Daily custom notes
+  h+=`<div class="daily-section"><h4>📝 今日工作记录</h4>`;
+  const daily=me+'_daily_'+todayStr();
+  if(!data[daily]) data[daily]=[];
+  (data[daily]||[]).forEach((d,i)=>{
+    h+=`<div class="my-task"><input type="checkbox" ${d.done?'checked':''} onchange="toggleDaily('${daily}',${i},this.checked)"><div class="info"><div class="desc ${d.done?'done':''}">${d.text}</div></div><span class="task-del" onclick="delDaily('${daily}',${i})">✕</span></div>`;
+  });
+  h+=`<div class="add-task" onclick="addDaily('${daily}')">＋ 添加今日事项</div>`;
+  h+='</div></div></div>';
+  panel.innerHTML=h;
+}
+
+function todayStr(){return new Date().toISOString().slice(0,10)}
+
+// ============ ACTIONS ============
+function togglePhase(epId,phaseKey,checked){
+  const ep=data.episodes[epId-1];
+  const ph=ep.phases.find(p=>p.key===phaseKey);
+  ph.status=checked?3:0;
+  save();render();
+}
+function changePerson(epId,phaseKey){
+  const ep=data.episodes[epId-1];
+  const ph=ep.phases.find(p=>p.key===phaseKey);
+  let h=`<label>更换负责人（当前: ${ph.person}）</label><select id="mSel">`;
+  PERSONS.forEach(p=>h+=`<option ${p===ph.person?'selected':''}>${p}</option>`);
+  h+='</select>';
+  showModal('👤 更换负责人 - 第'+epId+'集 '+ph.name,h,()=>{ph.person=document.getElementById('mSel').value;save();render();});
+}
+function editNote(epId,phaseKey){
+  const ep=data.episodes[epId-1];
+  const ph=ep.phases.find(p=>p.key===phaseKey);
+  showModal('📝 备注 - 第'+epId+'集 '+ph.name,
+    `<label>备注</label><textarea id="mNote">${ep.notes[phaseKey]||''}</textarea>`,
+    ()=>{ep.notes[phaseKey]=document.getElementById('mNote').value;save();render();});
+}
+function addCustom(epId,phaseKey){
+  const ep=data.episodes[epId-1];
+  showModal('＋ 添加子任务 - 第'+epId+'集',
+    `<label>任务内容</label><input id="mTask" placeholder="例：补充镜头A渲染">`,
+    ()=>{
+      const text=document.getElementById('mTask').value.trim();
+      if(!text)return;
+      if(!ep['custom_'+phaseKey]) ep['custom_'+phaseKey]=[];
+      ep['custom_'+phaseKey].push({text,done:false});
+      save();render();
+    });
+}
+function delCustom(epId,phaseKey,idx){
+  const ep=data.episodes[epId-1];
+  ep['custom_'+phaseKey].splice(idx,1);
+  save();render();
+}
+function toggleCustom(epId,phaseKey,idx,checked){
+  const ep=data.episodes[epId-1];
+  ep['custom_'+phaseKey][idx].done=checked;
+  save();render();
+}
+function cycleRev(epId,rKey){
+  data.episodes[epId-1].reviews[rKey]=(data.episodes[epId-1].reviews[rKey]+1)%4;
+  save();render();
+}
+function addDaily(key){
+  if(!data[key])data[key]=[];
+  showModal('＋ 今日事项',`<label>内容</label><input id="mDaily">`,()=>{
+    const text=document.getElementById('mDaily').value.trim();
+    if(text){data[key].push({text,done:false});save();render();}
   });
 }
-
-function editNote(epId, phaseKey){
-  const ep = data.episodes[epId-1];
-  const phase = PHASES.find(p=>p.key===phaseKey);
-  let html=`<label>备注内容</label><textarea id="mNote">${ep.notes[phaseKey]||''}</textarea>`;
-  showModal('📝 备注 - 第'+epId+'集 '+phase.name, html, ()=>{
-    ep.notes[phaseKey] = document.getElementById('mNote').value;
-    save(); render();
-  });
-}
-
-function cycleReview(epId, reviewKey){
-  const ep = data.episodes[epId-1];
-  ep.reviews[reviewKey] = (ep.reviews[reviewKey]+1) % 4;
-  save(); render();
-}
+function toggleDaily(key,idx,checked){data[key][idx].done=checked;save();render();}
+function delDaily(key,idx){data[key].splice(idx,1);save();render();}
 
 // ============ MODAL ============
-let modalCallback = null;
-function showModal(title, body, cb){
-  document.getElementById('modalTitle').textContent = title;
-  document.getElementById('modalBody').innerHTML = body;
-  modalCallback = cb;
+let modalCb=null;
+function showModal(title,body,cb){
+  document.getElementById('modalTitle').textContent=title;
+  document.getElementById('modalBody').innerHTML=body;
+  modalCb=cb;
+  document.getElementById('modalOk').onclick=()=>{if(cb)cb();closeModal();};
   document.getElementById('modal').classList.add('show');
 }
-function closeModal(){ document.getElementById('modal').classList.remove('show'); modalCallback=null; }
-function modalSave(){ if(modalCallback) modalCallback(); closeModal(); }
+function closeModal(){document.getElementById('modal').classList.remove('show');modalCb=null;}
 
-// ============ TOAST ============
 function toast(msg){
-  const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'),2000);
+  const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),1500);
 }
 
-// ============ EXPORT / IMPORT ============
+// ============ IMPORT/EXPORT ============
 function exportJSON(){
-  const blob = new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
-  const a = document.createElement('a');
-  a.href=URL.createObjectURL(blob);
-  a.download=`cursor-workflow-${new Date().toISOString().slice(0,10)}.json`;
-  a.click(); toast('📤 已导出');
+  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);
+  a.download='cursor-workflow-'+todayStr()+'.json';a.click();toast('📤 已导出');
 }
-function importJSON(){ document.getElementById('importFile').click(); }
 function handleImport(e){
-  const f=e.target.files[0]; if(!f) return;
-  const r=new FileReader();
-  r.onload=()=>{
-    try{ data=JSON.parse(r.result); save(); render(); toast('📥 导入成功'); }
-    catch(err){ toast('❌ JSON格式错误'); }
-  };
-  r.readAsText(f);
-  e.target.value='';
-}
-function resetData(){
-  if(confirm('确定重置所有数据？这将恢复到初始状态。')){ localStorage.removeItem('cursor_workflow_v2'); init(); render(); toast('🔄 已重置'); }
+  const f=e.target.files[0];if(!f)return;
+  const r=new FileReader();r.onload=()=>{try{data=JSON.parse(r.result);save();render();toast('📥 导入成功')}catch(er){toast('❌ 格式错误')}};
+  r.readAsText(f);e.target.value='';
 }
 
 // ============ INIT ============
-document.getElementById('viewMode').addEventListener('change', render);
-document.getElementById('phaseFilter').addEventListener('change', render);
-document.getElementById('batchFilter').addEventListener('change', render);
-load();
-render();
+load(); updateLoginUI(); render();
 </script>
 </body>
 </html>
