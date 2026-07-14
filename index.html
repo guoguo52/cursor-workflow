@@ -1,376 +1,467 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>极光心智 · Cursor拆本标准化工作流</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>极光心智 · Cursor拆本进度看板</title>
 <style>
-  :root { color-scheme: light dark; --bg:#f8fafc; --fg:#172033; --muted:#64748b; --line:#94a3b8; --accent:#6366f1; --accent2:#0ea5e9; --green:#10b981; --amber:#f59e0b; --red:#ef4444; --purple:#a855f7; --pink:#ec4899; --card:#fff; --border:#e2e8f0; --header-bg:#1e293b; --header-fg:#f1f5f9; --row-alt:#f1f5f9; }
-  @media (prefers-color-scheme:dark) { :root { --bg:#0f172a; --fg:#e2e8f0; --muted:#94a3b8; --card:#1e293b; --border:#334155; --header-bg:#334155; --header-fg:#f1f5f9; --row-alt:#1e293b; } }
-  * { margin:0; padding:0; box-sizing:border-box; }
-  body { background:var(--bg); color:var(--fg); font:14px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif; padding:24px; }
-  h1 { font-size:24px; font-weight:700; margin-bottom:8px; color:var(--accent); }
-  h2 { font-size:18px; font-weight:600; margin:32px 0 12px; padding-left:12px; border-left:4px solid var(--accent); }
-  h3 { font-size:15px; font-weight:600; margin:16px 0 8px; }
-  .subtitle { color:var(--muted); margin-bottom:24px; }
-  .note { background:#fef3c7; border-left:3px solid #f59e0b; padding:10px 14px; margin:12px 0; font-size:13px; border-radius:0 6px 6px 0; }
-  table { width:100%; border-collapse:collapse; margin:12px 0 24px; background:var(--card); border:1px solid var(--border); border-radius:8px; overflow:hidden; }
-  th { background:var(--header-bg); color:var(--header-fg); padding:10px 12px; font-size:13px; font-weight:600; text-align:left; }
-  td { padding:9px 12px; border-top:1px solid var(--border); font-size:13px; vertical-align:top; }
-  tr:nth-child(even) td { background:var(--row-alt); }
-  .tag { display:inline-block; padding:2px 8px; border-radius:12px; font-size:11px; font-weight:600; }
-  .tag-r { background:#fecaca; color:#991b1b; }
-  .tag-a { background:#bfdbfe; color:#1d4ed8; }
-  .tag-c { background:#bbf7d0; color:#166534; }
-  .tag-i { background:#e0e7ff; color:#3730a3; }
-  .tag-s { background:#fef08a; color:#854d0e; }
-  .gantt-wrap { overflow-x:auto; margin:12px 0 24px; background:var(--card); border:1px solid var(--border); border-radius:8px; padding:16px; }
-  .gantt { min-width:1000px; }
-  .gantt-row { display:flex; align-items:center; margin:4px 0; height:36px; }
-  .gantt-label { width:180px; flex-shrink:0; font-size:12px; font-weight:600; text-align:right; padding-right:12px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-  .gantt-timeline { flex:1; position:relative; height:36px; }
-  .gantt-bar { position:absolute; height:22px; top:7px; border-radius:4px; font-size:10px; color:#fff; display:flex; align-items:center; padding:0 6px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-  .gantt-header { display:flex; margin-bottom:8px; padding-left:180px; }
-  .gantt-header span { flex:1; text-align:center; font-size:11px; color:var(--muted); border-right:1px solid var(--border); }
-  .gantt-header span:last-child { border-right:none; }
-  .flow { display:flex; flex-wrap:wrap; gap:8px; margin:12px 0 24px; }
-  .flow-step { background:var(--card); border:1px solid var(--border); border-radius:8px; padding:12px 16px; flex:1; min-width:180px; position:relative; }
-  .flow-step .num { background:var(--accent); color:#fff; width:24px; height:24px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; margin-bottom:6px; }
-  .flow-step h4 { font-size:14px; font-weight:600; margin-bottom:4px; }
-  .flow-step p { font-size:12px; color:var(--muted); }
-  .arrow { display:flex; align-items:center; color:var(--muted); font-size:20px; }
-  .criteria { list-style:none; padding:0; }
-  .criteria li { padding:6px 0; border-bottom:1px solid var(--border); font-size:13px; }
-  .criteria li:last-child { border-bottom:none; }
-  .criteria li strong { color:var(--accent); }
+:root{--bg:#f8fafc;--fg:#172033;--muted:#64748b;--line:#e2e8f0;--accent:#6366f1;--green:#10b981;--amber:#f59e0b;--red:#ef4444;--blue:#0ea5e9;--purple:#a855f7;--pink:#ec4899;--card:#fff;--card2:#f1f5f9;--header:#1e293b;--header2:#334155;--radius:10px}
+@media(prefers-color-scheme:dark){:root{--bg:#0f172a;--fg:#e2e8f0;--muted:#94a3b8;--line:#334155;--card:#1e293b;--card2:#0f172a;--header:#0f172a;--header2:#1e293b}}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font:14px/1.6 system-ui,-apple-system,sans-serif;min-height:100vh}
+.wrap{max-width:1400px;margin:0 auto;padding:20px}
+h1{font-size:22px;font-weight:700;color:var(--accent);margin-bottom:4px}
+.sub{color:var(--muted);margin-bottom:20px;font-size:13px}
+
+/* Stats Cards */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:24px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;text-align:center}
+.stat .num{font-size:28px;font-weight:700;line-height:1.2}
+.stat .lbl{font-size:12px;color:var(--muted);margin-top:2px}
+.c-green .num{color:var(--green)}.c-blue .num{color:var(--blue)}.c-amber .num{color:var(--amber)}.c-red .num{color:var(--red)}.c-accent .num{color:var(--accent)}.c-purple .num{color:var(--purple)}
+
+/* Overall Progress */
+.overall{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px 20px;margin-bottom:24px}
+.overall h3{font-size:14px;font-weight:600;margin-bottom:10px}
+.pbar{height:10px;background:var(--card2);border-radius:5px;overflow:hidden;margin:6px 0}
+.pbar .fill{height:100%;border-radius:5px;transition:width .4s}
+.pbar-label{display:flex;justify-content:space-between;font-size:12px;color:var(--muted)}
+
+/* Toolbar */
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;align-items:center}
+.toolbar select,.toolbar button{padding:8px 14px;border-radius:8px;border:1px solid var(--line);font-size:13px;cursor:pointer;background:var(--card);color:var(--fg)}
+.toolbar button{background:var(--accent);color:#fff;border:none;font-weight:600}
+.toolbar button:hover{opacity:.9}
+.toolbar button.sec{background:var(--card2);color:var(--fg);border:1px solid var(--line)}
+
+/* Filter tabs */
+.tabs{display:flex;gap:4px;margin-bottom:16px;flex-wrap:wrap}
+.tab{padding:6px 14px;border-radius:20px;font-size:13px;cursor:pointer;border:1px solid var(--line);background:var(--card);color:var(--muted);font-weight:500;transition:.2s}
+.tab.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.tab:hover:not(.active){background:var(--card2)}
+
+/* Episode Grid */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:12px;margin-bottom:24px}
+.ep-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;transition:.2s}
+.ep-card:hover{box-shadow:0 2px 12px rgba(0,0,0,.08)}
+.ep-header{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:var(--header2);color:var(--fg)}
+.ep-header h4{font-size:14px;font-weight:600}
+.ep-header .ep-status{font-size:11px;padding:3px 10px;border-radius:12px;font-weight:600}
+.st-pending{background:#e2e8f0;color:#475569}
+.st-doing{background:#bfdbfe;color:#1d4ed8}
+.st-done{background:#bbf7d0;color:#166534}
+.st-issue{background:#fecaca;color:#991b1b}
+.st-review{background:#fde68a;color:#92400e}
+
+.ep-body{padding:10px 14px}
+.phase{display:flex;align-items:center;gap:8px;padding:4px 0;font-size:12px;border-bottom:1px solid var(--line)}
+.phase:last-child{border:none}
+.phase-label{width:68px;flex-shrink:0;font-weight:500;color:var(--muted);font-size:11px}
+.phase-person{width:50px;flex-shrink:0;text-align:center;font-size:11px;color:var(--blue);font-weight:600;cursor:pointer;padding:2px 4px;border-radius:4px}
+.phase-person:hover{background:var(--card2)}
+.phase-status{flex:1;display:flex;gap:3px}
+.phase-dot{width:18px;height:18px;border-radius:50%;border:2px solid var(--line);cursor:pointer;transition:.2s;display:flex;align-items:center;justify-content:center;font-size:9px;color:transparent}
+.phase-dot:hover{border-color:var(--accent)}
+.phase-dot.d0{border-color:#94a3b8;background:transparent}
+.phase-dot.d1{border-color:#3b82f6;background:#dbeafe;color:#3b82f6}
+.phase-dot.d2{border-color:#f59e0b;background:#fef3c7;color:#f59e0b}
+.phase-dot.d3{border-color:#10b981;background:#d1fae5;color:#10b981}
+.phase-dot.d4{border-color:#ef4444;background:#fee2e2;color:#ef4444}
+.phase-note{flex-shrink:0;font-size:16px;cursor:pointer;color:var(--muted);padding:0 4px}
+.phase-note:hover{color:var(--accent)}
+.phase-note.has{color:var(--amber)}
+
+/* Review row */
+.review{display:flex;gap:6px;padding:4px 0;flex-wrap:wrap}
+.rev-badge{font-size:10px;padding:2px 8px;border-radius:10px;font-weight:600;cursor:pointer;transition:.2s}
+.rev-wait{background:#e2e8f0;color:#64748b}
+.rev-pass{background:#bbf7d0;color:#166534}
+.rev-fail{background:#fecaca;color:#991b1b}
+.rev-progress{background:#fde68a;color:#854d0e}
+
+/* Modal */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:1000;align-items:center;justify-content:center}
+.modal-overlay.show{display:flex}
+.modal{background:var(--card);border-radius:16px;padding:24px;width:90%;max-width:420px;max-height:80vh;overflow-y:auto}
+.modal h3{font-size:16px;font-weight:700;margin-bottom:12px}
+.modal label{display:block;font-size:12px;color:var(--muted);margin-bottom:4px;margin-top:10px}
+.modal select,.modal input,.modal textarea{width:100%;padding:8px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;background:var(--bg);color:var(--fg)}
+.modal textarea{min-height:60px;resize:vertical}
+.modal-btns{display:flex;gap:8px;margin-top:16px;justify-content:flex-end}
+.modal-btns button{padding:8px 18px;border-radius:8px;border:none;font-size:13px;cursor:pointer;font-weight:600}
+.btn-ok{background:var(--accent);color:#fff}
+.btn-no{background:var(--card2);color:var(--fg);border:1px solid var(--line)!important}
+
+/* Legend */
+.legend{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:20px;padding:12px 16px;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);font-size:12px}
+.legend-item{display:flex;align-items:center;gap:5px}
+.legend-dot{width:14px;height:14px;border-radius:50%;border:2px solid}
+.legend-dot.l0{border-color:#94a3b8;background:transparent}
+.legend-dot.l1{border-color:#3b82f6;background:#dbeafe}
+.legend-dot.l2{border-color:#f59e0b;background:#fef3c7}
+.legend-dot.l3{border-color:#10b981;background:#d1fae5}
+.legend-dot.l4{border-color:#ef4444;background:#fee2e2}
+
+/* Person view */
+.person-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px;margin-bottom:12px}
+.person-card h4{font-size:15px;font-weight:700;margin-bottom:8px}
+.person-stats{display:flex;gap:12px;flex-wrap:wrap;font-size:12px;color:var(--muted)}
+.person-stats span{padding:3px 10px;background:var(--card2);border-radius:12px}
+
+/* Toast */
+.toast{position:fixed;bottom:20px;right:20px;background:var(--header);color:#fff;padding:12px 20px;border-radius:10px;font-size:13px;z-index:2000;transform:translateY(80px);opacity:0;transition:.3s}
+.toast.show{transform:translateY(0);opacity:1}
+
+/* Scrollbar */
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-thumb{background:var(--line);border-radius:3px}
+
+/* Batch header */
+.batch-header{font-size:15px;font-weight:700;color:var(--accent);margin:20px 0 10px;padding-left:8px;border-left:3px solid var(--accent)}
 </style>
 </head>
 <body>
+<div class="wrap">
+<h1>🎬 极光心智 · Cursor拆本进度看板</h1>
+<p class="sub">总集数 40 · 点击圆点更新状态 · 点击👤分配负责人 · 点击📝添加备注 · 数据自动保存至浏览器</p>
 
-<h1>🎬 极光心智 · Cursor拆本标准化工作流</h1>
-<p class="subtitle">版本 v1.0 | 更新日期 2026-07-14 | 适用项目：AI竖屏短剧/信息流视频</p>
+<!-- Stats -->
+<div class="stats" id="stats"></div>
 
-<!-- ======================== 流程总览 ======================== -->
-<h2>一、流程总览</h2>
-<div class="flow">
-  <div class="flow-step">
-    <div class="num">1</div>
-    <h4>剧本细化</h4>
-    <p>文本拆解 · 每批10集<br>夏木生产 → 蝈蝈审核 → 甲方审核</p>
-  </div>
-  <div class="arrow">→</div>
-  <div class="flow-step">
-    <div class="num">2</div>
-    <h4>资产生成</h4>
-    <p>角色/场景/道具/故事板<br>夏木·郭华·孙浩堂 → 飞书提交</p>
-  </div>
-  <div class="arrow">→</div>
-  <div class="flow-step">
-    <div class="num">3</div>
-    <h4>分镜视频</h4>
-    <p>故事板审核 → 提示词确认 → 渲染<br>每人2集 · 极光剧场</p>
-  </div>
-  <div class="arrow">→</div>
-  <div class="flow-step">
-    <div class="num">4</div>
-    <h4>粗剪辑</h4>
-    <p>无字幕粗剪<br>小韦·孙浩堂</p>
-  </div>
-  <div class="arrow">→</div>
-  <div class="flow-step">
-    <div class="num">5</div>
-    <h4>精剪交付</h4>
-    <p>优化剪辑 + 字幕<br>蝈蝈（或外包）</p>
-  </div>
+<!-- Overall Progress -->
+<div class="overall" id="overall"></div>
+
+<!-- Toolbar -->
+<div class="toolbar">
+  <select id="viewMode"><option value="batch">按批次查看</option><option value="person">按人员查看</option></select>
+  <select id="phaseFilter"><option value="all">全部阶段</option><option value="script">剧本细化</option><option value="asset">资产生成</option><option value="storyboard">故事板审核</option><option value="video">分镜视频</option><option value="roughcut">粗剪辑</option><option value="finalcut">精剪字幕</option></select>
+  <select id="batchFilter"><option value="all">全部批次</option><option value="1">第1批 (1-10集)</option><option value="2">第2批 (11-20集)</option><option value="3">第3批 (21-30集)</option><option value="4">第4批 (31-40集)</option></select>
+  <button class="sec" onclick="exportJSON()">📤 导出JSON</button>
+  <button class="sec" onclick="importJSON()">📥 导入JSON</button>
+  <button class="sec" onclick="resetData()">🔄 重置数据</button>
+  <input type="file" id="importFile" accept=".json" style="display:none" onchange="handleImport(event)">
 </div>
 
-<div class="note">⚡ <strong>并行策略：</strong>资产和故事板的生产在第一步完成后立即启动，不需要等甲方对剧本的反馈，不影响整体进度。</div>
+<!-- Legend -->
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot l0"></div>未开始</div>
+  <div class="legend-item"><div class="legend-dot l1"></div>进行中</div>
+  <div class="legend-item"><div class="legend-dot l2"></div>审核中</div>
+  <div class="legend-item"><div class="legend-dot l3"></div>已完成</div>
+  <div class="legend-item"><div class="legend-dot l4"></div>退回修改</div>
+</div>
 
-<!-- ======================== RACI分工表 ======================== -->
-<h2>二、RACI 分工责任表</h2>
-<table>
-  <tr>
-    <th>环节</th><th>夏木</th><th>蝈蝈（大叔）</th><th>郭华</th><th>孙浩堂</th><th>小韦</th><th>甲方</th>
-  </tr>
-  <tr>
-    <td><strong>① 剧本文本细化</strong></td>
-    <td><span class="tag tag-r">R 负责生产</span></td>
-    <td><span class="tag tag-a">A 审核第一道</span></td>
-    <td>—</td><td>—</td><td>—</td>
-    <td><span class="tag tag-a">A 审核第二道</span></td>
-  </tr>
-  <tr>
-    <td><strong>② 资产生成</strong><br>（角色/场景/道具/故事板）</td>
-    <td><span class="tag tag-r">R 负责生产</span></td>
-    <td><span class="tag tag-a">A 审核第一道</span></td>
-    <td><span class="tag tag-r">R 负责生产</span></td>
-    <td><span class="tag tag-r">R 负责生产</span></td>
-    <td>—</td>
-    <td><span class="tag tag-a">A 审核第二道</span></td>
-  </tr>
-  <tr>
-    <td><strong>③ 故事板审核</strong><br>（确认视频提示词）</td>
-    <td><span class="tag tag-c">C 被咨询</span></td>
-    <td><span class="tag tag-a">A 审核第一道</span></td>
-    <td><span class="tag tag-c">C 被咨询</span></td>
-    <td><span class="tag tag-c">C 被咨询</span></td>
-    <td>—</td>
-    <td><span class="tag tag-a">A 审核第二道</span></td>
-  </tr>
-  <tr>
-    <td><strong>③ 分镜视频渲染</strong><br>（第一版 + 补充生成）</td>
-    <td><span class="tag tag-r">R 负责2集</span></td>
-    <td><span class="tag tag-r">R 补充生成</span></td>
-    <td><span class="tag tag-r">R 负责2集</span></td>
-    <td><span class="tag tag-r">R 负责2集+补充</span></td>
-    <td><span class="tag tag-r">R 补充生成</span></td>
-    <td>—</td>
-  </tr>
-  <tr>
-    <td><strong>④ 粗剪辑</strong><br>（不加字幕）</td>
-    <td>—</td><td>—</td><td>—</td>
-    <td><span class="tag tag-r">R 负责</span></td>
-    <td><span class="tag tag-r">R 负责</span></td>
-    <td>—</td>
-  </tr>
-  <tr>
-    <td><strong>⑤ 精剪 + 字幕</strong></td>
-    <td>—</td>
-    <td><span class="tag tag-r">R 负责</span></td>
-    <td>—</td><td>—</td><td>—</td>
-    <td><span class="tag tag-a">A 终审</span></td>
-  </tr>
-</table>
-<p style="font-size:12px;color:var(--muted)">R = Responsible 负责执行 | A = Accountable 审核负责 | C = Consulted 被咨询 | — = 不参与</p>
+<!-- Content -->
+<div id="content"></div>
+</div>
 
-<!-- ======================== 甘特图 ======================== -->
-<h2>三、项目甘特图（每批10集周期）</h2>
-<div class="gantt-wrap">
-  <div class="gantt">
-    <div class="gantt-header">
-      <span>D1</span><span>D2</span><span>D3</span><span>D4</span><span>D5</span><span>D6</span><span>D7</span><span>D8</span><span>D9</span><span>D10</span><span>D11</span><span>D12</span><span>D13</span><span>D14</span>
-    </div>
-    <!-- Phase 1 -->
-    <div class="gantt-row">
-      <div class="gantt-label">①剧本细化（10集）</div>
-      <div class="gantt-timeline">
-        <div class="gantt-bar" style="left:0%;width:14.2%;background:#6366f1;">D1-D2</div>
-      </div>
-    </div>
-    <!-- Phase 1 parallel feedback -->
-    <div class="gantt-row">
-      <div class="gantt-label" style="color:var(--muted);">　└ 甲方审核反馈</div>
-      <div class="gantt-timeline">
-        <div class="gantt-bar" style="left:14.2%;width:7.1%;background:#a5b4fc;">D3</div>
-      </div>
-    </div>
-    <!-- Phase 2 -->
-    <div class="gantt-row">
-      <div class="gantt-label">②资产生成+故事板</div>
-      <div class="gantt-timeline">
-        <div class="gantt-bar" style="left:0%;width:28.5%;background:#0ea5e9;">D1-D4（并行）</div>
-      </div>
-    </div>
-    <!-- Phase 2 submit -->
-    <div class="gantt-row">
-      <div class="gantt-label" style="color:var(--muted);">　└ 飞书表提交+审核</div>
-      <div class="gantt-timeline">
-        <div class="gantt-bar" style="left:28.5%;width:14.2%;background:#7dd3fc;">D5-D6</div>
-      </div>
-    </div>
-    <!-- Phase 3 review -->
-    <div class="gantt-row">
-      <div class="gantt-label">③故事板审核</div>
-      <div class="gantt-timeline">
-        <div class="gantt-bar" style="left:42.8%;width:7.1%;background:#a855f7;">蝈蝈审 D7</div>
-      </div>
-    </div>
-    <div class="gantt-row">
-      <div class="gantt-label" style="color:var(--muted);">　└ 甲方审核</div>
-      <div class="gantt-timeline">
-        <div class="gantt-bar" style="left:50%;width:7.1%;background:#c084fc;">D8</div>
-      </div>
-    </div>
-    <!-- Phase 3 render -->
-    <div class="gantt-row">
-      <div class="gantt-label">③分镜视频渲染</div>
-      <div class="gantt-timeline">
-        <div class="gantt-bar" style="left:57.1%;width:21.4%;background:#ec4899;">D9-D11（每人2集）</div>
-      </div>
-    </div>
-    <div class="gantt-row">
-      <div class="gantt-label" style="color:var(--muted);">　└ 补充生成（×3后）</div>
-      <div class="gantt-timeline">
-        <div class="gantt-bar" style="left:71.4%;width:7.1%;background:#f472b6;">D12</div>
-      </div>
-    </div>
-    <!-- Phase 4 -->
-    <div class="gantt-row">
-      <div class="gantt-label">④粗剪辑（无字幕）</div>
-      <div class="gantt-timeline">
-        <div class="gantt-bar" style="left:71.4%;width:7.1%;background:#f59e0b;">D12</div>
-      </div>
-    </div>
-    <!-- Phase 5 -->
-    <div class="gantt-row">
-      <div class="gantt-label">⑤精剪+字幕</div>
-      <div class="gantt-timeline">
-        <div class="gantt-bar" style="left:78.5%;width:14.2%;background:#10b981;">D13-D14</div>
-      </div>
-    </div>
-    <!-- Milestones -->
-    <div class="gantt-row" style="height:20px;">
-      <div class="gantt-label" style="font-size:11px;color:var(--red);">里程碑</div>
-      <div class="gantt-timeline">
-        <div style="position:absolute;left:14.2%;top:6px;font-size:10px;color:var(--red);">▼ 剧本定稿</div>
-        <div style="position:absolute;left:42.8%;top:6px;font-size:10px;color:var(--red);">▼ 资产交付</div>
-        <div style="position:absolute;left:57.1%;top:6px;font-size:10px;color:var(--red);">▼ 渲染启动</div>
-        <div style="position:absolute;left:92.8%;top:6px;font-size:10px;color:var(--red);">▼ 成片交付</div>
-      </div>
-    </div>
+<!-- Modal -->
+<div class="modal-overlay" id="modal" onclick="if(event.target===this)closeModal()">
+<div class="modal">
+  <h3 id="modalTitle">编辑</h3>
+  <div id="modalBody"></div>
+  <div class="modal-btns">
+    <button class="btn-no" onclick="closeModal()">取消</button>
+    <button class="btn-ok" id="modalOk" onclick="modalSave()">保存</button>
   </div>
 </div>
-
-<!-- ======================== 项目进度表 ======================== -->
-<h2>四、项目进度跟踪表（模板）</h2>
-<table>
-  <tr>
-    <th>阶段</th><th>任务</th><th>负责人</th><th>计划开始</th><th>计划结束</th><th>实际开始</th><th>实际结束</th><th>状态</th><th>备注</th>
-  </tr>
-  <tr>
-    <td rowspan="2"><strong>①剧本细化</strong></td>
-    <td>文本拆解生产（10集/批）</td><td>夏木</td><td>D1</td><td>D2</td><td></td><td></td><td>⬜ 未开始</td><td></td>
-  </tr>
-  <tr>
-    <td>蝈蝈审核 → 甲方审核</td><td>蝈蝈/甲方</td><td>D2</td><td>D3</td><td></td><td></td><td>⬜ 未开始</td><td></td>
-  </tr>
-  <tr>
-    <td rowspan="2"><strong>②资产生成</strong></td>
-    <td>角色/场景/道具生成（10集）</td><td>夏木/郭华/孙浩堂</td><td>D1</td><td>D4</td><td></td><td></td><td>⬜ 未开始</td><td>与剧本并行</td>
-  </tr>
-  <tr>
-    <td>飞书表格提交 + 审核</td><td>蝈蝈/甲方</td><td>D5</td><td>D6</td><td></td><td></td><td>⬜ 未开始</td><td></td>
-  </tr>
-  <tr>
-    <td rowspan="3"><strong>③分镜视频</strong></td>
-    <td>故事板审核（蝈蝈→甲方）</td><td>蝈蝈/甲方</td><td>D7</td><td>D8</td><td></td><td></td><td>⬜ 未开始</td><td>确认提示词</td>
-  </tr>
-  <tr>
-    <td>第一版渲染（每人2集）</td><td>全员（按分工）</td><td>D9</td><td>D11</td><td></td><td></td><td>⬜ 未开始</td><td>最多抽3次</td>
-  </tr>
-  <tr>
-    <td>补充视频生成（×3后）</td><td>蝈蝈/孙浩堂/小韦</td><td>D12</td><td>D12</td><td></td><td></td><td>⬜ 未开始</td><td></td>
-  </tr>
-  <tr>
-    <td><strong>④粗剪辑</strong></td>
-    <td>视频粗剪（不加字幕）</td><td>小韦/孙浩堂</td><td>D12</td><td>D12</td><td></td><td></td><td>⬜ 未开始</td><td></td>
-  </tr>
-  <tr>
-    <td><strong>⑤精剪交付</strong></td>
-    <td>优化剪辑 + 加字幕</td><td>蝈蝈/外包</td><td>D13</td><td>D14</td><td></td><td></td><td>⬜ 未开始</td><td>甲方终审</td>
-  </tr>
-</table>
-
-<!-- ======================== 审核标准表 ======================== -->
-<h2>五、审核标准与检查清单</h2>
-
-<h3>🅰️ 故事板审核标准（蝈蝈第一道 → 甲方第二道）</h3>
-<table>
-  <tr><th>序号</th><th>检查项</th><th>标准说明</th><th>通过</th><th>退回原因</th></tr>
-  <tr><td>1</td><td><strong>角色一致性</strong></td><td>主角团形象与定妆板一致，配角造型合理</td><td>☐</td><td></td></tr>
-  <tr><td>2</td><td><strong>场景匹配</strong></td><td>场景设计与剧本描述匹配，氛围一致</td><td>☐</td><td></td></tr>
-  <tr><td>3</td><td><strong>故事板分镜</strong></td><td>镜头语言准确，景别/机位/动线合理</td><td>☐</td><td></td></tr>
-  <tr><td>4</td><td><strong>提示词准确性</strong></td><td>视频生成提示词完整、可执行</td><td>☐</td><td></td></tr>
-</table>
-
-<h3>🅱️ 视频素材审核标准（提交前必检）</h3>
-<table>
-  <tr><th>序号</th><th>检查项</th><th>标准说明</th><th>通过</th><th>退回原因</th></tr>
-  <tr><td>①</td><td><strong>无背景音乐</strong></td><td>视频素材不携带BGM，少量环节轻微可接受</td><td>☐</td><td></td></tr>
-  <tr><td>②</td><td><strong>无字幕</strong></td><td>如有字幕，统一使用 libTV 去除</td><td>☐</td><td></td></tr>
-  <tr><td>③</td><td><strong>无严重穿帮</strong></td><td>角色不分裂/不变形、场景无异常、道具无穿帮</td><td>☐</td><td></td></tr>
-  <tr><td>④</td><td><strong>色温/场景一致性</strong></td><td>色温控制与场景设定尽可能保持一致</td><td>☐</td><td></td></tr>
-</table>
-
-<!-- ======================== 反馈机制 ======================== -->
-<h2>六、反馈机制</h2>
-<table>
-  <tr>
-    <th>环节</th><th>反馈来源</th><th>反馈方式</th><th>处理时限</th><th>处理人</th><th>闭环标准</th>
-  </tr>
-  <tr>
-    <td>剧本细化</td><td>甲方</td><td>飞书文档批注/消息</td><td>24h内响应</td><td>夏木修改 → 蝈蝈复核</td><td>甲方确认通过</td>
-  </tr>
-  <tr>
-    <td>资产/故事板</td><td>蝈蝈 + 甲方</td><td>飞书表格提交 + 批注</td><td>蝈蝈24h / 甲方48h</td><td>对应制作人修改</td><td>甲方签字确认</td>
-  </tr>
-  <tr>
-    <td>故事板审核</td><td>甲方</td><td>飞书确认提示词</td><td>48h内</td><td>全员按新提示词执行</td><td>提示词锁定</td>
-  </tr>
-  <tr>
-    <td>分镜视频</td><td>内部质检</td><td>按4项审核标准自查</td><td>提交前完成</td><td>各负责人自查 → 蝈蝈抽检</td><td>全部4项通过</td>
-  </tr>
-  <tr>
-    <td>粗剪辑</td><td>蝈蝈</td><td>内部审片</td><td>当日</td><td>小韦/孙浩堂调整</td><td>蝈蝈确认可进精剪</td>
-  </tr>
-  <tr>
-    <td>精剪交付</td><td>甲方</td><td>成片审核</td><td>按合同约定</td><td>蝈蝈调整/外包修改</td><td>甲方终审通过</td>
-  </tr>
-</table>
-
-<!-- ======================== 工具与资源 ======================== -->
-<h2>七、工具与资源</h2>
-<table>
-  <tr><th>用途</th><th>工具/平台</th><th>链接/说明</th></tr>
-  <tr><td>视频生成</td><td>极光剧场</td><td>http://14.103.68.254/ （选用火山引擎企业版或旧版）</td></tr>
-  <tr><td>去字幕</td><td>libTV</td><td>统一使用 libTV 去除字幕</td></tr>
-  <tr><td>素材提交</td><td>飞书表格</td><td>按飞书文档标准提交</td></tr>
-  <tr><td>成片提交</td><td>文件夹下载</td><td>按文件夹结构打包下载</td></tr>
-</table>
-
-<!-- ======================== 分工明细 ======================== -->
-<h2>八、每人工作分配明细</h2>
-<table>
-  <tr><th>成员</th><th>负责环节</th><th>每批工作量</th><th>产出物</th></tr>
-  <tr>
-    <td><strong>夏木</strong></td>
-    <td>剧本细化 + 资产生成 + 分镜渲染</td>
-    <td>10集剧本 + 分担资产 + 2集渲染</td>
-    <td>剧本文本 / 角色·场景·道具 / 视频片段</td>
-  </tr>
-  <tr>
-    <td><strong>蝈蝈</strong></td>
-    <td>全流程审核 + 补充生成 + 精剪字幕</td>
-    <td>审核3道关卡 + 补充视频 + 精剪10集</td>
-    <td>审核意见 / 补充视频 / 成片</td>
-  </tr>
-  <tr>
-    <td><strong>郭华</strong></td>
-    <td>资产生成 + 分镜渲染</td>
-    <td>分担资产 + 2集渲染</td>
-    <td>角色·场景·道具 / 视频片段</td>
-  </tr>
-  <tr>
-    <td><strong>孙浩堂</strong></td>
-    <td>资产生成 + 分镜渲染 + 补充 + 粗剪</td>
-    <td>分担资产 + 2集渲染 + 补充 + 粗剪</td>
-    <td>资产 / 视频片段 / 粗剪文件</td>
-  </tr>
-  <tr>
-    <td><strong>小韦</strong></td>
-    <td>补充视频生成 + 粗剪</td>
-    <td>补充视频 + 粗剪</td>
-    <td>补充视频片段 / 粗剪文件</td>
-  </tr>
-</table>
-
-<div class="note">
-  📌 <strong>关键规则提醒：</strong><br>
-  ① 资产与故事板生产<strong>不等甲方剧本反馈</strong>，拿到细化文本即启动，保证进度不阻塞。<br>
-  ② 分镜视频每个视频组<strong>最多抽3次</strong>，超出部分由蝈蝈、孙浩堂、小韦负责生成。<br>
-  ③ 视频素材提交前<strong>必须通过4项审核标准</strong>（无BGM、无字幕、无穿帮、色温一致）。<br>
-  ④ 粗剪阶段<strong>不加字幕</strong>，字幕统一在精剪阶段（⑤）由蝈蝈或外包处理。
 </div>
 
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ============ DATA MODEL ============
+const PHASES = [
+  {key:'script', name:'剧本细化', persons:['夏木','蝈蝈','郭华','孙浩堂','小韦'], defaultPerson:'夏木'},
+  {key:'asset', name:'资产生成', persons:['夏木','蝈蝈','郭华','孙浩堂','小韦'], defaultPerson:'夏木'},
+  {key:'storyboard', name:'故事板审核', persons:['夏木','蝈蝈','郭华','孙浩堂','小韦','甲方'], defaultPerson:'蝈蝈'},
+  {key:'video', name:'分镜视频', persons:['夏木','蝈蝈','郭华','孙浩堂','小韦'], defaultPerson:'夏木'},
+  {key:'roughcut', name:'粗剪辑', persons:['夏木','蝈蝈','郭华','孙浩堂','小韦'], defaultPerson:'小韦'},
+  {key:'finalcut', name:'精剪字幕', persons:['蝈蝈'], defaultPerson:'蝈蝈'}
+];
+
+const REVIEWS = [
+  {key:'script_review_guoguo', label:'蝈蝈审剧本'},
+  {key:'script_review_client', label:'甲方审剧本'},
+  {key:'asset_review_guoguo', label:'蝈蝈审资产'},
+  {key:'asset_review_client', label:'甲方审资产'},
+  {key:'story_review_guoguo', label:'蝈蝈审故事板'},
+  {key:'story_review_client', label:'甲方审故事板'},
+  {key:'final_review_client', label:'甲方终审成片'}
+];
+
+const STATUS = {0:'未开始',1:'进行中',2:'审核中',3:'已完成',4:'退回修改'};
+const STATUS_CLS = {0:'d0',1:'d1',2:'d2',3:'d3',4:'d4'};
+const CARD_STATUS = {0:'st-pending',1:'st-doing',2:'st-review',3:'st-done',4:'st-issue'};
+const REV_STATUS = {0:'st-review',1:'st-progress',2:'st-pass',3:'st-fail'};
+
+const EPISODES = 40;
+const BATCH_SIZE = 10;
+
+// ============ STORAGE ============
+let data;
+function load(){
+  const saved = localStorage.getItem('cursor_workflow_v2');
+  if(saved){ data = JSON.parse(saved); } else { init(); }
+}
+function save(){ localStorage.setItem('cursor_workflow_v2', JSON.stringify(data)); toast('💾 已自动保存'); }
+function init(){
+  data = { episodes:[] };
+  for(let i=1;i<=EPISODES;i++){
+    const ep = {id:i, batch:Math.ceil(i/BATCH_SIZE), phases:{}, reviews:{}, notes:{}};
+    PHASES.forEach(p=>{ ep.phases[p.key] = {status:0, person:p.defaultPerson}; ep.notes[p.key] = ''; });
+    REVIEWS.forEach(r=>{ ep.reviews[r.key] = 0; });
+    // Pre-fill: episodes 1-11 rough cut done by 小韦
+    if(i<=11){
+      ep.phases.script.status = 3;
+      ep.phases.asset.status = 3;
+      ep.phases.storyboard.status = 3;
+      ep.phases.video.status = 3;
+      ep.phases.roughcut.status = 3;
+      ep.phases.roughcut.person = '小韦';
+      ep.phases.finalcut.status = 1;
+      ep.notes.roughcut = i<=2 ? '需增补两组镜头' : '';
+      ep.reviews.script_review_guoguo = 2;
+      ep.reviews.script_review_client = 2;
+      ep.reviews.asset_review_guoguo = 2;
+      ep.reviews.asset_review_client = 2;
+      ep.reviews.story_review_guoguo = 2;
+      ep.reviews.story_review_client = 2;
+    }
+    data.episodes.push(ep);
+  }
+  save();
+}
+
+// ============ RENDER ============
+function render(){
+  renderStats();
+  renderOverall();
+  const mode = document.getElementById('viewMode').value;
+  if(mode==='person') renderPersonView(); else renderBatchView();
+}
+
+function renderStats(){
+  const eps = data.episodes;
+  const done = eps.filter(e=>getEpStatus(e)>=3).length;
+  const doing = eps.filter(e=>{const s=getEpStatus(e);return s===1||s===2}).length;
+  const issue = eps.filter(e=>getEpStatus(e)===4).length;
+  const pending = eps.filter(e=>getEpStatus(e)===0).length;
+  const phaseComplete = PHASES.reduce((a,p)=>a+eps.filter(e=>e.phases[p.key].status===3).length,0);
+  const totalPhase = EPISODES * PHASES.length;
+  const pct = Math.round(phaseComplete/totalPhase*100);
+  document.getElementById('stats').innerHTML = `
+    <div class="stat c-accent"><div class="num">${EPISODES}</div><div class="lbl">总集数</div></div>
+    <div class="stat c-green"><div class="num">${done}</div><div class="lbl">已完成集数</div></div>
+    <div class="stat c-blue"><div class="num">${doing}</div><div class="lbl">进行中</div></div>
+    <div class="stat c-amber"><div class="num">${pending}</div><div class="lbl">未开始</div></div>
+    <div class="stat c-red"><div class="num">${issue}</div><div class="lbl">退回修改</div></div>
+    <div class="stat c-purple"><div class="num">${pct}%</div><div class="lbl">总进度</div></div>`;
+}
+
+function renderOverall(){
+  const eps = data.episodes;
+  let html = '<h3>📊 各阶段完成进度</h3>';
+  PHASES.forEach(p=>{
+    const d = eps.filter(e=>e.phases[p.key].status===3).length;
+    const pct = Math.round(d/EPISODES*100);
+    const color = pct===100?'var(--green)':pct>50?'var(--blue)':'var(--amber)';
+    html+=`<div class="pbar-label"><span>${p.name}</span><span>${d}/${EPISODES} (${pct}%)</span></div><div class="pbar"><div class="fill" style="width:${pct}%;background:${color}"></div></div>`;
+  });
+  // Reviews
+  html+='<h3 style="margin-top:16px">🔍 审核进度</h3>';
+  REVIEWS.forEach(r=>{
+    const d = eps.filter(e=>e.reviews[r.key]===2).length;
+    const pct = Math.round(d/EPISODES*100);
+    const color = pct===100?'var(--green)':'var(--purple)';
+    html+=`<div class="pbar-label"><span>${r.label}</span><span>${d}/${EPISODES} (${pct}%)</span></div><div class="pbar"><div class="fill" style="width:${pct}%;background:${color}"></div></div>`;
+  });
+  document.getElementById('overall').innerHTML = html;
+}
+
+function getEpStatus(ep){
+  const scores = PHASES.map(p=>ep.phases[p.key].status);
+  if(scores.some(s=>s===4)) return 4;
+  if(scores.every(s=>s===3)) return 3;
+  if(scores.some(s=>s===2)) return 2;
+  if(scores.some(s=>s===1)) return 1;
+  return 0;
+}
+
+function getEpStatusText(ep){
+  const s=getEpStatus(ep);
+  if(s===3) return '已完成';
+  if(s===4) return '有退回';
+  const phases = PHASES;
+  const lastDone = phases.findLast(p=>ep.phases[p.key].status===3);
+  const nextPhase = lastDone ? phases[phases.indexOf(lastDone)+1] : phases[0];
+  if(nextPhase) return nextPhase ? nextPhase.name : '—';
+  return '—';
+}
+
+function renderBatchView(){
+  const filter = document.getElementById('batchFilter').value;
+  const phaseF = document.getElementById('phaseFilter').value;
+  let html='';
+  const batches = filter==='all'?[1,2,3,4]:[parseInt(filter)];
+  batches.forEach(b=>{
+    const eps = data.episodes.filter(e=>e.batch===b);
+    html+=`<div class="batch-header">📦 第${b}批 (${(b-1)*BATCH_SIZE+1}-${b*BATCH_SIZE}集)</div>`;
+    html+='<div class="grid">';
+    eps.forEach(ep=>{
+      if(phaseF!=='all'){
+        const phasesToShow = PHASES.filter(p=>p.key===phaseF);
+        html+=renderEpCard(ep, phasesToShow);
+      } else {
+        html+=renderEpCard(ep, PHASES);
+      }
+    });
+    html+='</div>';
+  });
+  document.getElementById('content').innerHTML = html;
+}
+
+function renderEpCard(ep, phases){
+  const st = getEpStatus(ep);
+  const cls = CARD_STATUS[st];
+  const stText = st===3?'✅ 已完成':st===4?'⚠️ 有退回':st===2?'⏳ 审核中':st===1?'🔨 进行中':'⬜ 未开始';
+  let html=`<div class="ep-card"><div class="ep-header"><h4>第 ${ep.id} 集</h4><span class="ep-status ${cls}">${stText}</span></div><div class="ep-body">`;
+  phases.forEach(p=>{
+    const s = ep.phases[p.key].status;
+    const person = ep.phases[p.key].person;
+    const note = ep.notes[p.key];
+    html+=`<div class="phase"><span class="phase-label">${p.name}</span><span class="phase-person" onclick="editPerson(${ep.id},'${p.key}')" title="点击更换负责人">👤${person}</span>`;
+    html+=`<div class="phase-status">`;
+    for(let i=0;i<=4;i++){
+      html+=`<div class="phase-dot ${STATUS_CLS[i]}" onclick="setStatus(${ep.id},'${p.key}',${i})" title="${STATUS[i]}">${i===3?'✓':i===4?'✗':''}</div>`;
+    }
+    html+=`</div>`;
+    html+=`<span class="phase-note ${note?'has':''}" onclick="editNote(${ep.id},'${p.key}')" title="备注">📝</span></div>`;
+  });
+  // Reviews
+  const epReviews = REVIEWS.filter(r=>{
+    if(r.key.includes('script')||r.key.includes('asset')||r.key.includes('story')) return true;
+    if(r.key.includes('final')) return true;
+    return true;
+  });
+  html+='<div class="review">';
+  epReviews.forEach(r=>{
+    const s = ep.reviews[r.key];
+    const cls = s===0?'rev-wait':s===1?'rev-progress':s===2?'rev-pass':'rev-fail';
+    const txt = s===0?'待审':s===1?'审核中':s===2?'已过':'退回';
+    html+=`<span class="rev-badge ${cls}" onclick="cycleReview(${ep.id},'${r.key}')" title="点击切换">${r.label}:${txt}</span>`;
+  });
+  html+='</div>';
+  html+='</div></div>';
+  return html;
+}
+
+function renderPersonView(){
+  const persons = ['夏木','蝈蝈','郭华','孙浩堂','小韦'];
+  let html='';
+  persons.forEach(p=>{
+    const myEps = data.episodes.filter(ep=>PHASES.some(ph=>ep.phases[ph.key].person===p && ep.phases[ph.key].status!==0));
+    const done = data.episodes.filter(ep=>PHASES.some(ph=>ep.phases[ph.key].person===p && ep.phases[ph.key].status===3)).length;
+    const doing = myEps.length - done;
+    const issue = data.episodes.filter(ep=>PHASES.some(ph=>ep.phases[ph.key].person===p && ep.phases[ph.key].status===4)).length;
+    html+=`<div class="person-card"><h4>👤 ${p}</h4>`;
+    html+=`<div class="person-stats"><span>负责 ${myEps.length} 集</span><span>已完成 ${done}</span><span>进行中 ${doing}</span><span>退回 ${issue}</span></div>`;
+    html+='<div style="margin-top:10px">';
+    myEps.forEach(ep=>{
+      const myPhases = PHASES.filter(ph=>ep.phases[ph.key].person===p);
+      myPhases.forEach(ph=>{
+        const s=ep.phases[ph.key].status;
+        const color=s===3?'var(--green)':s===4?'var(--red)':s>0?'var(--blue)':'var(--muted)';
+        html+=`<div style="display:flex;align-items:center;gap:8px;padding:3px 0;font-size:12px"><span style="color:var(--muted);width:50px">第${ep.id}集</span><span>${ph.name}</span><span style="width:10px;height:10px;border-radius:50%;background:${color}"></span><span style="color:var(--muted);font-size:11px">${STATUS[s]}</span></div>`;
+      });
+    });
+    html+='</div></div>';
+  });
+  document.getElementById('content').innerHTML = html;
+}
+
+// ============ INTERACTIONS ============
+function setStatus(epId, phaseKey, status){
+  data.episodes[epId-1].phases[phaseKey].status = status;
+  save(); render();
+}
+
+function editPerson(epId, phaseKey){
+  const ep = data.episodes[epId-1];
+  const phase = PHASES.find(p=>p.key===phaseKey);
+  const current = ep.phases[phaseKey].person;
+  let html=`<label>当前: ${current}</label><label>更换为:</label><select id="mPerson">`;
+  phase.persons.forEach(p=>{ html+=`<option value="${p}" ${p===current?'selected':''}>${p}</option>`; });
+  html+='</select>';
+  showModal('👤 更换负责人 - 第'+epId+'集 '+phase.name, html, ()=>{
+    ep.phases[phaseKey].person = document.getElementById('mPerson').value;
+    save(); render();
+  });
+}
+
+function editNote(epId, phaseKey){
+  const ep = data.episodes[epId-1];
+  const phase = PHASES.find(p=>p.key===phaseKey);
+  let html=`<label>备注内容</label><textarea id="mNote">${ep.notes[phaseKey]||''}</textarea>`;
+  showModal('📝 备注 - 第'+epId+'集 '+phase.name, html, ()=>{
+    ep.notes[phaseKey] = document.getElementById('mNote').value;
+    save(); render();
+  });
+}
+
+function cycleReview(epId, reviewKey){
+  const ep = data.episodes[epId-1];
+  ep.reviews[reviewKey] = (ep.reviews[reviewKey]+1) % 4;
+  save(); render();
+}
+
+// ============ MODAL ============
+let modalCallback = null;
+function showModal(title, body, cb){
+  document.getElementById('modalTitle').textContent = title;
+  document.getElementById('modalBody').innerHTML = body;
+  modalCallback = cb;
+  document.getElementById('modal').classList.add('show');
+}
+function closeModal(){ document.getElementById('modal').classList.remove('show'); modalCallback=null; }
+function modalSave(){ if(modalCallback) modalCallback(); closeModal(); }
+
+// ============ TOAST ============
+function toast(msg){
+  const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2000);
+}
+
+// ============ EXPORT / IMPORT ============
+function exportJSON(){
+  const blob = new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  const a = document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download=`cursor-workflow-${new Date().toISOString().slice(0,10)}.json`;
+  a.click(); toast('📤 已导出');
+}
+function importJSON(){ document.getElementById('importFile').click(); }
+function handleImport(e){
+  const f=e.target.files[0]; if(!f) return;
+  const r=new FileReader();
+  r.onload=()=>{
+    try{ data=JSON.parse(r.result); save(); render(); toast('📥 导入成功'); }
+    catch(err){ toast('❌ JSON格式错误'); }
+  };
+  r.readAsText(f);
+  e.target.value='';
+}
+function resetData(){
+  if(confirm('确定重置所有数据？这将恢复到初始状态。')){ localStorage.removeItem('cursor_workflow_v2'); init(); render(); toast('🔄 已重置'); }
+}
+
+// ============ INIT ============
+document.getElementById('viewMode').addEventListener('change', render);
+document.getElementById('phaseFilter').addEventListener('change', render);
+document.getElementById('batchFilter').addEventListener('change', render);
+load();
+render();
+</script>
 </body>
 </html>
