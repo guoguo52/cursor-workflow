@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>文档阅读 · 《白衬衫》</title>
+<meta name="description" content="《白衬衫》廉政微电影 · 全案文档在线阅读" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400&family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --ink: #141820;
+    --ink-soft: #3a4250;
+    --paper: #f4f6f8;
+    --paper-2: #e8eef3;
+    --window: #c9d6e3;
+    --skin: #e8d5c4;
+    --copper: #8b7355;
+    --copper-deep: #6e5a41;
+    --dusk: #1e2833;
+    --line: rgba(30, 40, 51, 0.12);
+    --serif: "Noto Serif SC", "Cormorant Garamond", serif;
+    --sans: "Noto Sans SC", system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    margin: 0;
+    font-family: var(--sans);
+    color: var(--ink);
+    background:
+      radial-gradient(ellipse 120% 80% at 100% -10%, rgba(201, 214, 227, 0.55), transparent 50%),
+      radial-gradient(ellipse 90% 60% at -10% 40%, rgba(232, 213, 196, 0.28), transparent 45%),
+      var(--paper);
+    display: flex;
+    flex-direction: column;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; }
+
+  /* —— 顶栏 —— */
+  .bar {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    padding: 0.85rem clamp(1rem, 4vw, 2.5rem);
+    background: rgba(244, 246, 248, 0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+    flex-wrap: wrap;
+  }
+  .bar .back {
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    color: var(--ink-soft);
+    border: 1px solid var(--line);
+    padding: 0.4rem 0.9rem;
+    border-radius: 999px;
+    transition: 0.25s;
+    white-space: nowrap;
+  }
+  .bar .back:hover { border-color: var(--copper); color: var(--copper-deep); }
+  .bar h1 {
+    margin: 0;
+    font-family: var(--serif);
+    font-size: 1.05rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    flex: 1 1 auto;
+    min-width: 10rem;
+  }
+  .bar h1 small {
+    display: block;
+    font-family: var(--sans);
+    font-weight: 400;
+    font-size: 0.72rem;
+    color: var(--copper);
+    letter-spacing: 0.22em;
+    margin-top: 0.15rem;
+  }
+  .doc-tabs { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+  .doc-tabs a {
+    text-decoration: none;
+    font-size: 0.78rem;
+    padding: 0.32rem 0.8rem;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    color: var(--ink-soft);
+    transition: 0.25s;
+    white-space: nowrap;
+  }
+  .doc-tabs a:hover { border-color: var(--copper); }
+  .doc-tabs a.on {
+    background: var(--dusk);
+    border-color: var(--dusk);
+    color: #f4f6f8;
+  }
+
+  /* —— 滚动阅读面板（滑块预览） —— */
+  .scroll-panel {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+    scrollbar-width: thin;
+    scrollbar-color: var(--copper) rgba(30, 40, 51, 0.08);
+  }
+  .scroll-panel::-webkit-scrollbar { width: 12px; }
+  .scroll-panel::-webkit-scrollbar-track { background: rgba(30, 40, 51, 0.06); }
+  .scroll-panel::-webkit-scrollbar-thumb {
+    background: linear-gradient(var(--copper), var(--copper-deep));
+    border-radius: 999px;
+    border: 3px solid var(--paper);
+  }
+
+  .doc {
+    width: min(880px, calc(100% - 2.5rem));
+    margin: 0 auto;
+    padding: clamp(2rem, 5vw, 3.5rem) 0 6rem;
+  }
+  .doc-head {
+    margin-bottom: 2.5rem;
+    padding-bottom: 1.75rem;
+    border-bottom: 1px solid var(--line);
+  }
+  .doc-head .kicker {
+    font-size: 0.75rem;
+    letter-spacing: 0.35em;
+    color: var(--copper);
+    margin: 0 0 0.6rem;
+  }
+  .doc-head h2 {
+    font-family: var(--serif);
+    font-size: clamp(1.6rem, 3.4vw, 2.3rem);
+    font-weight: 700;
+    margin: 0 0 0.5rem;
+    line-height: 1.35;
+  }
+  .doc-head .meta { font-size: 0.82rem; color: var(--ink-soft); margin: 0; letter-spacing: 0.05em; }
+
+  /* —— 正文排版：主标题 / 分标题 / 正文 分级 —— */
+  .doc h3 {  /* 一级：幕 / 章 */
+    font-family: var(--serif);
+    font-size: 1.45rem;
+    font-weight: 700;
+    color: var(--dusk);
+    margin: 3.2rem 0 1.1rem;
+    padding-top: 1.6rem;
+    border-top: 1px solid var(--line);
+    letter-spacing: 0.04em;
+  }
+  .doc h3:first-child { border-top: none; padding-top: 0; margin-top: 0; }
+  .doc h4 {  /* 二级：场 / 小节 */
+    font-family: var(--serif);
+    font-size: 1.12rem;
+    font-weight: 600;
+    color: var(--copper-deep);
+    margin: 2.2rem 0 0.8rem;
+    padding-left: 0.85rem;
+    border-left: 3px solid var(--copper);
+    letter-spacing: 0.03em;
+  }
+  .doc h5 {  /* 三级：标签小头 */
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--ink-soft);
+    letter-spacing: 0.12em;
+    margin: 1.8rem 0 0.5rem;
+  }
+  .doc .group-head {  /* 分镜组 */
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    font-family: var(--serif);
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--dusk);
+    margin: 3rem 0 0.9rem;
+    padding-top: 1.5rem;
+    border-top: 1px dashed rgba(139, 115, 85, 0.4);
+  }
+  .doc .group-head .no {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #fff;
+    background: var(--copper);
+    border-radius: 999px;
+    padding: 0.1rem 0.7rem;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+  }
+  .doc p { margin: 0 0 1.05rem; line-height: 1.95; font-size: 0.98rem; color: var(--ink); }
+  .doc p.stage {  /* △ 舞台说明 */
+    color: var(--ink-soft);
+    font-size: 0.92rem;
+    padding-left: 1.4rem;
+    text-indent: -1.4rem;
+    line-height: 1.9;
+  }
+  .doc p.dialogue { padding-left: 0.2rem; }
+  .doc p.dialogue strong {
+    color: var(--copper-deep);
+    font-weight: 700;
+    margin-right: 0.35rem;
+  }
+  .doc p.timecode {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--copper);
+    letter-spacing: 0.12em;
+    margin: 1.6rem 0 0.5rem;
+  }
+  .doc p.meta-row {
+    font-size: 0.88rem;
+    color: var(--ink-soft);
+    margin: 0 0 0.35rem;
+  }
+  .doc p.meta-row .chip {
+    display: inline-block;
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    color: var(--copper-deep);
+    background: rgba(139, 115, 85, 0.12);
+    border-radius: 3px;
+    padding: 0.05rem 0.5rem;
+    margin-right: 0.55rem;
+    vertical-align: 0.08em;
+  }
+  .doc p.note {
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    background: rgba(201, 214, 227, 0.22);
+    border-left: 3px solid var(--window);
+    padding: 0.7rem 1rem;
+    border-radius: 0 6px 6px 0;
+  }
+  .doc p.note .tag, .doc details .tag {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    color: #fff;
+    background: var(--ink-soft);
+    border-radius: 3px;
+    padding: 0.08rem 0.55rem;
+    margin-right: 0.55rem;
+    vertical-align: 0.1em;
+  }
+  .doc blockquote {
+    margin: 1.4rem 0;
+    padding: 0.9rem 1.25rem;
+    border-left: 3px solid var(--copper);
+    background: rgba(232, 213, 196, 0.22);
+    border-radius: 0 8px 8px 0;
+    color: var(--ink-soft);
+    font-size: 0.93rem;
+    line-height: 1.9;
+  }
+  .doc blockquote p { margin: 0 0 0.4rem; font-size: inherit; color: inherit; }
+  .doc blockquote p:last-child { margin-bottom: 0; }
+  .doc hr {
+    border: none;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(139, 115, 85, 0.5), transparent);
+    margin: 3rem auto;
+    width: 60%;
+  }
+  .doc table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.4rem 0 1.8rem;
+    font-size: 0.88rem;
+    background: rgba(255, 255, 255, 0.55);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .doc th {
+    text-align: left;
+    font-family: var(--serif);
+    font-weight: 600;
+    color: var(--dusk);
+    background: rgba(201, 214, 227, 0.35);
+    padding: 0.6rem 0.9rem;
+    border-bottom: 1px solid var(--line);
+  }
+  .doc td {
+    padding: 0.55rem 0.9rem;
+    border-bottom: 1px solid rgba(30, 40, 51, 0.07);
+    color: var(--ink-soft);
+    vertical-align: top;
+    line-height: 1.75;
+  }
+  .doc tr:last-child td { border-bottom: none; }
+  .doc ul { margin: 0 0 1.2rem; padding-left: 1.4rem; }
+  .doc li { margin-bottom: 0.45rem; line-height: 1.85; font-size: 0.95rem; color: var(--ink); }
+  .doc code {
+    font-size: 0.85em;
+    padding: 0.1em 0.35em;
+    background: rgba(30, 40, 51, 0.07);
+    border-radius: 3px;
+  }
+  .doc pre {
+    font-size: 0.85rem;
+    line-height: 2;
+    color: var(--ink-soft);
+    background: rgba(30, 40, 51, 0.05);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 1rem 1.3rem;
+    overflow-x: auto;
+    margin: 1.3rem 0 1.8rem;
+  }
+  .doc details {
+    margin: 0 0 0.6rem;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.45);
+  }
+  .doc details summary {
+    cursor: pointer;
+    padding: 0.5rem 0.9rem;
+    font-size: 0.82rem;
+    color: var(--ink-soft);
+    letter-spacing: 0.05em;
+    user-select: none;
+  }
+  .doc details summary:hover { color: var(--copper-deep); }
+  .doc details .fold-body {
+    padding: 0.2rem 1rem 0.9rem;
+    font-size: 0.86rem;
+    color: var(--ink-soft);
+    line-height: 1.85;
+    border-top: 1px dashed var(--line);
+    margin-top: 0.1rem;
+    padding-top: 0.7rem;
+  }
+  .loading, .load-err {
+    text-align: center;
+    color: var(--ink-soft);
+    padding: 5rem 0;
+    letter-spacing: 0.2em;
+    font-size: 0.9rem;
+  }
+  .load-err { color: #a05252; }
+
+  /* 回顶按钮 */
+  .to-top {
+    position: fixed;
+    right: clamp(1.2rem, 3vw, 2.2rem);
+    bottom: 2rem;
+    width: 2.8rem;
+    height: 2.8rem;
+    border-radius: 50%;
+    border: 1px solid var(--line);
+    background: rgba(244, 246, 248, 0.9);
+    color: var(--copper-deep);
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 10px 30px rgba(20, 24, 32, 0.15);
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.3s;
+  }
+  .to-top.show { opacity: 1; pointer-events: auto; }
+  .to-top:hover { border-color: var(--copper); }
+
+  @media (max-width: 640px) {
+    .bar { gap: 0.6rem; }
+    .bar h1 { font-size: 0.95rem; }
+    .doc p { font-size: 0.94rem; }
+  }
+</style>
+</head>
+<body>
+  <header class="bar">
+    <a class="back" href="index.html#deliver">← 返回展示站</a>
+    <h1 id="barTitle">文档阅读<small>《白衬衫》 · 全案文档</small></h1>
+    <nav class="doc-tabs" id="docTabs" aria-label="文档切换"></nav>
+  </header>
+
+  <div class="scroll-panel" id="scrollPanel">
+    <article class="doc" id="docBody">
+      <p class="loading">正在载入文档 …</p>
+    </article>
+  </div>
+
+  <button class="to-top" id="toTop" aria-label="回到顶部" title="回到顶部">↑</button>
+
+<script>
+(function () {
+  "use strict";
+
+  var DOCS = {
+    brief:    { file: "docs/00_brief.md",   title: "项目 Brief",             kicker: "00 · PROJECT BRIEF",   meta: "题材 · 时长 · 受众 · 模式" },
+    proposal: { file: "docs/proposal.md",   title: "政府展示全案",           kicker: "01 · PROPOSAL",        meta: "立意 · 梗概 · 人物 · 剧情 · 宣发" },
+    script:   { file: "docs/script.txt",    title: "全剧文学细化剧本",       kicker: "02 · SCRIPT",          meta: "六幕结构 · 台词逐字保真 · 约 8 分钟" },
+    assets:   { file: "docs/assets.md",     title: "资产提示词包",           kicker: "03 · ASSET PROMPTS",   meta: "场景 / 角色 / 道具 · 合并稿" },
+    seedance: { file: "docs/seedance.txt",  title: "EP01 Seedance 视频脚本", kicker: "04 · SEEDANCE 2.0",    meta: "语速重切稿 · 逐组时间码 · 可复制投喂" }
+  };
+
+  var params = new URLSearchParams(location.search);
+  var key = params.get("doc");
+  if (!DOCS[key]) key = "script";
+  var doc = DOCS[key];
+
+  document.title = doc.title + " · 《白衬衫》";
+  document.getElementById("barTitle").innerHTML =
+    escapeHtml(doc.title) + "<small>《白衬衫》 · 全案文档在线阅读</small>";
+
+  var tabs = document.getElementById("docTabs");
+  Object.keys(DOCS).forEach(function (k) {
+    var a = document.createElement("a");
+    a.href = "reader.html?doc=" + k;
+    a.textContent = DOCS[k].title;
+    if (k === key) a.className = "on";
+    tabs.appendChild(a);
+  });
+
+  var body = document.getElementById("docBody");
+
+  fetch(doc.file)
+    .then(function (r) { if (!r.ok) throw new Error(r.status); return r.text(); })
+    .then(function (text) { body.innerHTML = buildHead() + render(text); })
+    .catch(function () {
+      body.innerHTML = buildHead() +
+        '<p class="load-err">文档载入失败，请通过本地服务访问本站（而非直接双击 HTML 文件）。</p>';
+    });
+
+  function buildHead() {
+    return '<header class="doc-head"><p class="kicker">' + doc.kicker + "</p><h2>" +
+      escapeHtml(doc.title) + '</h2><p class="meta">' + escapeHtml(doc.meta) + "</p></header>";
+  }
+
+  function escapeHtml(s) {
+    return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+  function inline(s) {
+    return escapeHtml(s)
+      .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>")
+      .replace(/`([^`]+)`/g, "<code>$1</code>");
+  }
+
+  var FOLD_TAGS = { "风格统一": 1, "画面约束": 1 };
+
+  function render(text) {
+    var lines = text.replace(/\r\n?/g, "\n").split("\n");
+    var out = [];
+    var para = [], quote = [], table = [], list = [];
+    var firstLineUsed = false;
+    var codeBlock = null;
+
+    function flushPara() {
+      if (!para.length) return;
+      var t = para.join(" ");
+      para = [];
+      out.push(classifyPara(t));
+    }
+    function flushQuote() {
+      if (!quote.length) return;
+      out.push("<blockquote>" + quote.map(function (q) { return "<p>" + inline(q) + "</p>"; }).join("") + "</blockquote>");
+      quote = [];
+    }
+    function flushTable() {
+      if (!table.length) return;
+      var rows = table; table = [];
+      var html = "<table>";
+      rows.forEach(function (cells, i) {
+        var tag = i === 0 ? "th" : "td";
+        html += "<tr>" + cells.map(function (c) { return "<" + tag + ">" + inline(c) + "</" + tag + ">"; }).join("") + "</tr>";
+      });
+      out.push(html + "</table>");
+    }
+    function flushList() {
+      if (!list.length) return;
+      out.push("<ul>" + list.map(function (i) { return "<li>" + inline(i) + "</li>"; }).join("") + "</ul>");
+      list = [];
+    }
+    function flushAll() { flushPara(); flushQuote(); flushTable(); flushList(); }
+
+    function classifyPara(t) {
+      var m;
+      if (/^△/.test(t)) return '<p class="stage">' + inline(t) + "</p>";
+      if (/^\d{1,2}:\d{2}\s*[-–—]{1,2}\s*\d{1,2}:\d{2}/.test(t))
+        return '<p class="timecode">' + escapeHtml(t) + "</p>";
+      if ((m = t.match(/^(?:场景|角色|道具|分镜图)\s*(.*)$/)) && t.length < 220) {
+        var chip = t.slice(0, 3) === "分镜图" ? "分镜图" : t.slice(0, 2);
+        return '<p class="meta-row"><span class="chip">' + chip + "</span>" + inline(t.slice(chip.length).replace(/^\s+/, "")) + "</p>";
+      }
+      if ((m = t.match(/^\*\*([^*]{1,14}?)[：:]?\*\*[：:]?\s*(.*)$/)))
+        return '<p class="dialogue"><strong>' + escapeHtml(m[1]) + "：</strong>" + inline(m[2]) + "</p>";
+      if ((m = t.match(/^([\u4e00-\u9fa5A-Za-z0-9·／\/]{1,10})：(（[^）]*）)?\s*(.*)$/)) && m[3])
+        return '<p class="dialogue"><strong>' + escapeHtml(m[1]) + "：</strong>" + inline((m[2] || "") + m[3]) + "</p>";
+      return "<p>" + inline(t) + "</p>";
+    }
+
+    for (var i = 0; i < lines.length; i++) {
+      var raw = lines[i];
+      var line = raw.replace(/\s+$/, "");
+      var t = line.replace(/^\s+/, "");
+      var m;
+
+      /* 代码围栏 */
+      if (/^```/.test(t)) {
+        if (codeBlock === null) { flushAll(); codeBlock = []; }
+        else { out.push("<pre>" + escapeHtml(codeBlock.join("\n")) + "</pre>"); codeBlock = null; }
+        continue;
+      }
+      if (codeBlock !== null) { codeBlock.push(line); continue; }
+
+      if (!t) { flushAll(); continue; }
+
+      /* 首行作为文档主标题已在 doc-head 呈现，跳过重复 */
+      if (!firstLineUsed) {
+        firstLineUsed = true;
+        if (!/^#/.test(t) && (t.indexOf(doc.title) !== -1 || /^《/.test(t))) {
+          flushAll();
+          out.push('<p class="meta-row"><span class="chip">原题</span>' + inline(t) + "</p>");
+          continue;
+        }
+      }
+
+      /* Markdown 标题 */
+      if ((m = t.match(/^(#{1,5})\s+(.*)$/))) {
+        flushAll();
+        var lv = m[1].length;
+        var tag = lv <= 1 ? "h3" : lv === 2 ? "h3" : lv === 3 ? "h4" : "h5";
+        out.push("<" + tag + ">" + inline(m[2]) + "</" + tag + ">");
+        continue;
+      }
+      /* 分隔线 */
+      if (/^-{3,}$/.test(t) || /^\*{3,}$/.test(t)) { flushAll(); out.push("<hr />"); continue; }
+      /* 引用 */
+      if ((m = t.match(/^>\s?(.*)$/))) { flushPara(); flushTable(); flushList(); quote.push(m[1]); continue; }
+      flushQuote();
+      /* Markdown 表格 */
+      if (/^\|/.test(t)) {
+        if (/^\|[\s:|-]+\|$/.test(t)) continue; /* 对齐分隔行 */
+        flushPara(); flushList();
+        table.push(t.replace(/^\||\|$/g, "").split("|").map(function (c) { return c.trim(); }));
+        continue;
+      }
+      /* Tab 分隔表格（txt 中的表） */
+      if (t.indexOf("\t") !== -1) {
+        flushPara(); flushList();
+        table.push(t.split("\t").map(function (c) { return c.trim(); }));
+        continue;
+      }
+      flushTable();
+      /* 列表 */
+      if ((m = t.match(/^(?:[-*]|\d+[.、])\s+(.*)$/)) || (m = t.match(/^\[x?\]\s*(.*)$/i))) {
+        flushPara(); list.push(m[1]); continue;
+      }
+      flushList();
+      /* 分镜组标题 */
+      if ((m = t.match(/^【分镜组\s*(\d+)】\s*(.*)$/))) {
+        flushAll();
+        out.push('<div class="group-head"><span class="no">G' + m[1] + "</span><span>" + inline(m[2]) + "</span></div>");
+        continue;
+      }
+      /* 幕标题 */
+      if (/^第[一二三四五六七八九十百]+幕/.test(t)) { flushAll(); out.push("<h3>" + inline(t) + "</h3>"); continue; }
+      /* 场标题 */
+      if (/^场\s?\d/.test(t)) { flushAll(); out.push("<h4>" + inline(t) + "</h4>"); continue; }
+      /* 【标签】行 */
+      if ((m = t.match(/^【([^】]{1,14})】\s*(.*)$/))) {
+        flushAll();
+        if (!m[2]) { out.push("<h5>【" + escapeHtml(m[1]) + "】</h5>"); continue; }
+        if (FOLD_TAGS[m[1]]) {
+          out.push('<details><summary><span class="tag">' + escapeHtml(m[1]) +
+            '</span>展开固定规范（每组相同，默认收起）</summary><div class="fold-body">' + inline(m[2]) + "</div></details>");
+          continue;
+        }
+        out.push('<p class="note"><span class="tag">' + escapeHtml(m[1]) + "</span>" + inline(m[2]) + "</p>");
+        continue;
+      }
+      para.push(t);
+      flushPara(); /* 逐行成段：剧本类文本每行即一段，保持间隔 */
+    }
+    flushAll();
+    return out.join("\n");
+  }
+
+  /* 回顶 */
+  var panel = document.getElementById("scrollPanel");
+  var toTop = document.getElementById("toTop");
+  panel.addEventListener("scroll", function () {
+    toTop.classList.toggle("show", panel.scrollTop > 600);
+  }, { passive: true });
+  toTop.addEventListener("click", function () { panel.scrollTo({ top: 0, behavior: "smooth" }); });
+})();
+</script>
+</body>
+</html>

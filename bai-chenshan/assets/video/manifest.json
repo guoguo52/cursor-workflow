@@ -1,0 +1,26 @@
+{
+  "episode": {
+    "title": "第一集 · 同学会",
+    "video": "",
+    "cover": "assets/video/episode/ep01_reunion_cover.jpg",
+    "bytes": 0,
+    "note": "视频已移至 GitHub Releases，Pages 仅挂载封面与文档图册。",
+    "release": "https://github.com/guoguo52/cursor-workflow/releases"
+  },
+  "clips": [],
+  "stills": [
+    {
+      "file": "assets/web/still/cafe_day.jpg",
+      "label": "同学会咖啡馆日景"
+    },
+    {
+      "file": "assets/web/still/cafe_night_box.jpg",
+      "label": "同学会夜包厢"
+    },
+    {
+      "file": "assets/web/still/pr_reu_01_wine.jpg",
+      "label": "PR-REU-01 红酒杯"
+    }
+  ],
+  "pages_url": "https://guoguo52.github.io/cursor-workflow/bai-chenshan/"
+}

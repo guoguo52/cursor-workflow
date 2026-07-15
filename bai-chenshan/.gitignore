@@ -1,0 +1,4 @@
+assets/video/**/*.mp4
+assets/video/**/*.mp3
+assets/video/clips/
+assets/video/clips_web/
