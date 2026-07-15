@@ -1,2 +1,4 @@
-assets/video/episode/ep01_reunion.mp4
+assets/video/**/*.mp4
+assets/video/**/*.mp3
 assets/video/clips/
+assets/video/clips_web/
