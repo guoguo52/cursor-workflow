@@ -1,0 +1,238 @@
+{
+  "episode": {
+    "title": "第一集 · 同学会",
+    "video": "",
+    "cover": "assets/video/episode/ep01_reunion_cover.jpg",
+    "audio": "assets/video/episode/ep01_reunion.mp3",
+    "bytes": 241799214,
+    "note": "成片 ep01_reunion.mp4 超出 GitHub 100MB 限额，未纳入 Pages；本地 8770 可播。"
+  },
+  "clips": [
+    {
+      "id": "clip_01",
+      "file": "assets/video/clips/clip_01_n3_clean.mp4",
+      "node": "3",
+      "label": "分镜节点 3 · 去字幕",
+      "bytes": 14538409
+    },
+    {
+      "id": "clip_02",
+      "file": "assets/video/clips/clip_02_n3_raw.mp4",
+      "node": "3",
+      "label": "分镜节点 3",
+      "bytes": 4066164
+    },
+    {
+      "id": "clip_03",
+      "file": "assets/video/clips/clip_03_n4_raw.mp4",
+      "node": "4",
+      "label": "分镜节点 4",
+      "bytes": 5439085
+    },
+    {
+      "id": "clip_04",
+      "file": "assets/video/clips/clip_04_n5_raw.mp4",
+      "node": "5",
+      "label": "分镜节点 5",
+      "bytes": 6100004
+    },
+    {
+      "id": "clip_05",
+      "file": "assets/video/clips/clip_05_n6_raw.mp4",
+      "node": "6",
+      "label": "分镜节点 6",
+      "bytes": 5584091
+    },
+    {
+      "id": "clip_06",
+      "file": "assets/video/clips/clip_06_n10_raw.mp4",
+      "node": "10",
+      "label": "分镜节点 10",
+      "bytes": 4579473
+    },
+    {
+      "id": "clip_07",
+      "file": "assets/video/clips/clip_07_n10_raw.mp4",
+      "node": "10",
+      "label": "分镜节点 10",
+      "bytes": 5700315
+    },
+    {
+      "id": "clip_08",
+      "file": "assets/video/clips/clip_08_n12_raw.mp4",
+      "node": "12",
+      "label": "分镜节点 12",
+      "bytes": 6715934
+    },
+    {
+      "id": "clip_09",
+      "file": "assets/video/clips/clip_09_n12_raw.mp4",
+      "node": "12",
+      "label": "分镜节点 12",
+      "bytes": 4334772
+    },
+    {
+      "id": "clip_10",
+      "file": "assets/video/clips/clip_10_n12_raw.mp4",
+      "node": "12",
+      "label": "分镜节点 12",
+      "bytes": 4739968
+    },
+    {
+      "id": "clip_11",
+      "file": "assets/video/clips/clip_11_n12_raw.mp4",
+      "node": "12",
+      "label": "分镜节点 12",
+      "bytes": 2602938
+    },
+    {
+      "id": "clip_12",
+      "file": "assets/video/clips/clip_12_n12_raw.mp4",
+      "node": "12",
+      "label": "分镜节点 12",
+      "bytes": 3876091
+    },
+    {
+      "id": "clip_13",
+      "file": "assets/video/clips/clip_13_n12_raw.mp4",
+      "node": "12",
+      "label": "分镜节点 12",
+      "bytes": 4799776
+    },
+    {
+      "id": "clip_14",
+      "file": "assets/video/clips/clip_14_n14_raw.mp4",
+      "node": "14",
+      "label": "分镜节点 14",
+      "bytes": 3349335
+    },
+    {
+      "id": "clip_15",
+      "file": "assets/video/clips/clip_15_n14_raw.mp4",
+      "node": "14",
+      "label": "分镜节点 14",
+      "bytes": 4595649
+    },
+    {
+      "id": "clip_16",
+      "file": "assets/video/clips/clip_16_n14_raw.mp4",
+      "node": "14",
+      "label": "分镜节点 14",
+      "bytes": 3349144
+    },
+    {
+      "id": "clip_17",
+      "file": "assets/video/clips/clip_17_n14_raw.mp4",
+      "node": "14",
+      "label": "分镜节点 14",
+      "bytes": 6113565
+    },
+    {
+      "id": "clip_18",
+      "file": "assets/video/clips/clip_18_n15_raw.mp4",
+      "node": "15",
+      "label": "分镜节点 15",
+      "bytes": 1875184
+    },
+    {
+      "id": "clip_19",
+      "file": "assets/video/clips/clip_19_n17_raw.mp4",
+      "node": "17",
+      "label": "分镜节点 17",
+      "bytes": 4994426
+    },
+    {
+      "id": "clip_20",
+      "file": "assets/video/clips/clip_20_n18_raw.mp4",
+      "node": "18",
+      "label": "分镜节点 18",
+      "bytes": 5803388
+    },
+    {
+      "id": "clip_21",
+      "file": "assets/video/clips/clip_21_n19_raw.mp4",
+      "node": "19",
+      "label": "分镜节点 19",
+      "bytes": 3110358
+    },
+    {
+      "id": "clip_22",
+      "file": "assets/video/clips/clip_22_n19_raw.mp4",
+      "node": "19",
+      "label": "分镜节点 19",
+      "bytes": 4230659
+    },
+    {
+      "id": "clip_23",
+      "file": "assets/video/clips/clip_23_n20_raw.mp4",
+      "node": "20",
+      "label": "分镜节点 20",
+      "bytes": 3518015
+    },
+    {
+      "id": "clip_24",
+      "file": "assets/video/clips/clip_24_n21_raw.mp4",
+      "node": "21",
+      "label": "分镜节点 21",
+      "bytes": 5607025
+    },
+    {
+      "id": "clip_25",
+      "file": "assets/video/clips/clip_25_n21_raw.mp4",
+      "node": "21",
+      "label": "分镜节点 21",
+      "bytes": 6288759
+    },
+    {
+      "id": "clip_26",
+      "file": "assets/video/clips/clip_26_n21_raw.mp4",
+      "node": "21",
+      "label": "分镜节点 21",
+      "bytes": 4800121
+    },
+    {
+      "id": "clip_27",
+      "file": "assets/video/clips/clip_27_n21_raw.mp4",
+      "node": "21",
+      "label": "分镜节点 21",
+      "bytes": 6346680
+    },
+    {
+      "id": "clip_28",
+      "file": "assets/video/clips/clip_28_n21_raw.mp4",
+      "node": "21",
+      "label": "分镜节点 21",
+      "bytes": 5772980
+    },
+    {
+      "id": "clip_29",
+      "file": "assets/video/clips/clip_29_n21_raw.mp4",
+      "node": "21",
+      "label": "分镜节点 21",
+      "bytes": 6538657
+    },
+    {
+      "id": "clip_30",
+      "file": "assets/video/clips/clip_30_n22_raw.mp4",
+      "node": "22",
+      "label": "分镜节点 22",
+      "bytes": 5789300
+    }
+  ],
+  "stills": [
+    {
+      "file": "assets/web/still/cafe_day.jpg",
+      "label": "同学会咖啡馆日景"
+    },
+    {
+      "file": "assets/web/still/cafe_night_box.jpg",
+      "label": "同学会夜包厢"
+    },
+    {
+      "file": "assets/web/still/pr_reu_01_wine.jpg",
+      "label": "PR-REU-01 红酒杯"
+    }
+  ],
+  "synced_from": "C:\\Users\\Administrator\\Desktop\\白衬衫",
+  "pages_url": "https://guoguo52.github.io/cursor-workflow/bai-chenshan/"
+}
